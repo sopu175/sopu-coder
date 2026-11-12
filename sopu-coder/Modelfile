@@ -9,16 +9,67 @@
 
 FROM qwen2.5-coder:7b
 
-# Inference & Generation Optimization (High Precision, Low Latency, Low VRAM)
-PARAMETER temperature 0.15
+# Inference & Generation Optimization (High Precision, Low Latency, Agentic Tools)
+PARAMETER temperature 0.2
 PARAMETER top_p 0.90
-PARAMETER top_k 30
-PARAMETER repeat_penalty 1.10
-PARAMETER num_ctx 8192
-PARAMETER num_predict 2048
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.05
+PARAMETER num_ctx 16384
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
-PARAMETER stop "```\n\n\n"
+
+TEMPLATE """{{- if .Suffix }}<|fim_prefix|>{{ .Prompt }}<|fim_suffix|>{{ .Suffix }}<|fim_middle|>
+{{- else if .Messages }}
+{{- if or .System .Tools }}<|im_start|>system
+{{- if .System }}
+{{ .System }}
+{{- end }}
+{{- if .Tools }}
+
+# Tools
+
+You have access to the following tools:
+{{- range .Tools }}
+{"type": "function", "function": {{ .Function }}}
+{{- end }}
+
+CRITICAL TOOL CALLING FORMAT:
+If you need to call a tool, you MUST return ONLY a single JSON object.
+- The "name" field MUST be the exact short name of the tool (e.g. "task"), NEVER the description.
+- Do NOT include markdown codeblocks (no ```json or ```).
+- Output MUST start with { and end with }.
+
+Example:
+{"name": "task", "arguments": {"prompt": "index all codebase files", "subagent_type": "explore"}}
+{{- end }}<|im_end|>
+{{ end }}
+{{- range $i, $_ := .Messages }}
+{{- $last := eq (len (slice $.Messages $i)) 1 -}}
+{{- if eq .Role "user" }}<|im_start|>user
+{{ .Content }}<|im_end|>
+{{ else if eq .Role "assistant" }}<|im_start|>assistant
+{{ if .Content }}{{ .Content }}
+{{- else if .ToolCalls }}
+{{- range .ToolCalls }}
+{"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}}
+{{- end }}
+{{- end }}{{ if not $last }}<|im_end|>
+{{ end }}
+{{- else if eq .Role "tool" }}<|im_start|>user
+<tool_response>
+{{ .Content }}
+</tool_response><|im_end|>
+{{ end }}
+{{- if and (ne .Role "assistant") $last }}<|im_start|>assistant
+{{ end }}
+{{- end }}
+{{- else }}
+{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}<|im_start|>assistant
+{{ end }}{{ .Response }}{{ if .Response }}<|im_end|>{{ end }}"""
 
 # System Prompt
 SYSTEM """You are SopuCoder, an elite, production-grade AI software engineer and reasoning assistant created and maintained by Md. Saiful Islam (Saif).
@@ -49,4 +100,9 @@ Core Engineering & Execution Guidelines:
 4. Output Delivery & Speed:
    - Go straight to the solution with zero conversational filler or pleasantries.
    - Place all code in appropriate markdown codeblocks with correct language identifiers.
-   - Keep post-code explanations concise, highlighting only key architectural decisions and performance trade-offs."""
+   - Keep post-code explanations concise, highlighting only key architectural decisions and performance trade-offs.
+
+5. Autonomous Agent & Tool Calling Execution:
+   - When tools are provided, you act as an autonomous software engineer and subagent coordinator.
+   - Whenever the user requests indexing, searching, exploring, reading, writing, editing files, or running commands, invoke the matching function immediately using the exact short tool name (e.g. "task").
+   - Output ONLY valid JSON for tool execution with no surrounding commentary or markdown codeblocks."""

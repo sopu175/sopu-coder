@@ -8,17 +8,70 @@
 #              and running smoothly on low-spec hardware or laptops.
 # ==============================================================================
 
-FROM qwen3.5:4b
+FROM sopu-coder-fast:latest
 
-# Inference Parameters (Deterministic, Low-Latency Autocomplete, Ultra-Low RAM)
+# Inference Parameters (Deterministic, Low-Latency Autocomplete, Agentic Tools)
 PARAMETER temperature 0.10
 PARAMETER top_p 0.85
 PARAMETER top_k 25
 PARAMETER repeat_penalty 1.10
-PARAMETER num_ctx 4096
-PARAMETER num_predict 1024
+PARAMETER num_ctx 8192
+PARAMETER num_predict 2048
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
+
+TEMPLATE """{{- if .Suffix }}<|fim_prefix|>{{ .Prompt }}<|fim_suffix|>{{ .Suffix }}<|fim_middle|>
+{{- else if .Messages }}
+{{- if or .System .Tools }}<|im_start|>system
+{{- if .System }}
+{{ .System }}
+{{- end }}
+{{- if .Tools }}
+
+# Tools
+
+You have access to the following tools:
+{{- range .Tools }}
+{"type": "function", "function": {{ .Function }}}
+{{- end }}
+
+CRITICAL TOOL CALLING FORMAT:
+If you need to call a tool, you MUST return ONLY a single JSON object.
+- The "name" field MUST be the exact short name of the tool (e.g. "task"), NEVER the description.
+- Do NOT include markdown codeblocks (no ```json or ```).
+- Output MUST start with { and end with }.
+
+Example:
+{"name": "task", "arguments": {"prompt": "index all codebase files", "subagent_type": "explore"}}
+{{- end }}<|im_end|>
+{{ end }}
+{{- range $i, $_ := .Messages }}
+{{- $last := eq (len (slice $.Messages $i)) 1 -}}
+{{- if eq .Role "user" }}<|im_start|>user
+{{ .Content }}<|im_end|>
+{{ else if eq .Role "assistant" }}<|im_start|>assistant
+{{ if .Content }}{{ .Content }}
+{{- else if .ToolCalls }}
+{{- range .ToolCalls }}
+{"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}}
+{{- end }}
+{{- end }}{{ if not $last }}<|im_end|>
+{{ end }}
+{{- else if eq .Role "tool" }}<|im_start|>user
+<tool_response>
+{{ .Content }}
+</tool_response><|im_end|>
+{{ end }}
+{{- if and (ne .Role "assistant") $last }}<|im_start|>assistant
+{{ end }}
+{{- end }}
+{{- else }}
+{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}<|im_start|>assistant
+{{ end }}{{ .Response }}{{ if .Response }}<|im_end|>{{ end }}"""
 
 # System Prompt
 SYSTEM """You are SopuCoder Fast, a lightning-fast, high-precision code completion and refactoring engine created and maintained by Md. Saiful Islam (Saif), combining Alibaba Cloud's Qwen foundation architecture with DeepSeek-R1 reasoning technology.
@@ -37,4 +90,9 @@ Operational Rules:
 
 3. Response Format:
    - Output the code block immediately.
-   - Keep any explanation to at most 1-2 bullet points if strictly necessary."""
+   - Keep any explanation to at most 1-2 bullet points if strictly necessary.
+
+4. Autonomous Agent & Tool Calling Execution:
+   - When tools are provided, act as an autonomous software engineer and subagent coordinator.
+   - Whenever requested to execute tasks, search, or index, invoke the matching function immediately using the exact short tool name (e.g. "task").
+   - Output ONLY valid JSON for tool execution with no surrounding commentary or markdown codeblocks."""
