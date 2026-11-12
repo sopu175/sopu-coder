@@ -163,3 +163,4 @@ flowchart TD
 - [ ] Launch WebGPU in-browser interactive coding assistant at GitHub Pages.
 - [ ] Introduce `sopu-coder-pro` (14B) for high-end workstations and teams.
 - [ ] Release unified VS Code & JetBrains extension with automatic tier selection based on available system RAM.
+
