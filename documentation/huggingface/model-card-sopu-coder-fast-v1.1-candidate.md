@@ -82,3 +82,4 @@ ollama run sopu-coder-fast:v1.1-candidate
 - **Base Weights:** Alibaba Cloud Qwen Team (`Qwen/Qwen2.5-Coder-1.5B-Instruct`), licensed under Apache 2.0.
 - **Fine-Tuning Dataset:** `datasets/v1.1/` curated by SopuCoder open-source contributors (Apache 2.0).
 - **LoRA Adapter Weights:** SopuCoder Project (Apache 2.0).
+

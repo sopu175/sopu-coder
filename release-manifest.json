@@ -1,0 +1,50 @@
+[
+  {
+    "path": "documentation/AUTOMATION_STATUS.md",
+    "extension": ".md",
+    "size_bytes": 1433,
+    "sha256": "cb25cceb5450b23f3616c130bddbd322944bd5d7e8a766adc40497266adb65aa"
+  },
+  {
+    "path": "documentation/MASTER_EXECUTION_PLAN.md",
+    "extension": ".md",
+    "size_bytes": 4806,
+    "sha256": "0ad4f9c4a3f31828fc6b473bfaf5be74bd86da20835dc3ed365aea8ed829e29f"
+  },
+  {
+    "path": "documentation/NEXT_ACTIONS.md",
+    "extension": ".md",
+    "size_bytes": 1495,
+    "sha256": "a33f129c725a7877f2c563b84bd368ecf9830ab44716a0591be7ab355434c88a"
+  },
+  {
+    "path": "documentation/PROJECT_AUDIT.md",
+    "extension": ".md",
+    "size_bytes": 2965,
+    "sha256": "ba1f9009c8f863d0aa0e07735ba2d292f102d1cbe5e11e499b78b022fa5d53b8"
+  },
+  {
+    "path": "documentation/PROJECT_CONTEXT.md",
+    "extension": ".md",
+    "size_bytes": 1770,
+    "sha256": "a99782d65b8a4f8ce0ce913fef3dbf6053d588471c40574b15da749374aa1986"
+  },
+  {
+    "path": "sopu-coder-fast/Modelfile",
+    "extension": "Modelfile",
+    "size_bytes": 2276,
+    "sha256": "d0023a45a48be972ee4681b9ca588b5b7b5ff07e971da8f6a4618dd5bfe9838b"
+  },
+  {
+    "path": "sopu-coder/Modelfile",
+    "extension": "Modelfile",
+    "size_bytes": 3026,
+    "sha256": "10b28be410588d4bff9632e167c30fc9eff218560e0730e7985cb46545bc2f91"
+  },
+  {
+    "path": "training/evaluation/EVALUATION_REPORT.md",
+    "extension": ".md",
+    "size_bytes": 5759,
+    "sha256": "6f270046c1ab9f27883795e799d979b204c489bd9dfe4acddb091d1ebd845e12"
+  }
+]

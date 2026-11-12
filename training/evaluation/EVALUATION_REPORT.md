@@ -100,3 +100,4 @@ Evaluation was conducted against held-out samples from `datasets/v1.1/test.jsonl
 - **Next Continuous Training Goal:**
   - Scale curated dataset to 250+ real-world examples across all 10 supported technologies.
   - Perform 4-bit LoRA on 7B base model using Cloud GPU or 32GB+ Unified Memory.
+
