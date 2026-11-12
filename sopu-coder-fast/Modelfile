@@ -10,12 +10,13 @@
 
 FROM qwen3.5:4b
 
-# Inference Parameters (Deterministic, Low-Latency Autocomplete)
+# Inference Parameters (Deterministic, Low-Latency Autocomplete, Ultra-Low RAM)
 PARAMETER temperature 0.10
 PARAMETER top_p 0.85
 PARAMETER top_k 25
 PARAMETER repeat_penalty 1.10
-PARAMETER num_ctx 16384
+PARAMETER num_ctx 4096
+PARAMETER num_predict 1024
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
 
