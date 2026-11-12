@@ -1,26 +1,8 @@
 [
   {
-    "path": "benchmarks/README.md",
-    "extension": ".md",
-    "size_bytes": 2050,
-    "sha256": "ed562ae104e78ec5e57de3eac7bad96bf7194d311c66f5de1c448acba3f92e78"
-  },
-  {
-    "path": "documentation/RESEARCH_CAPACITY_AND_DEVICE_EXPANSION.md",
-    "extension": ".md",
-    "size_bytes": 10917,
-    "sha256": "1ea9fbe7bba1f439c0a52824085e576b0f7f5c1f96a8acb3908c95ae90c6374a"
-  },
-  {
-    "path": "scripts/device_profiler.py",
-    "extension": ".py",
-    "size_bytes": 5121,
-    "sha256": "525d26552371eea8084a1e51a7e12fdba2347d20f6972b06eea995ab4c1aea93"
-  },
-  {
-    "path": "tools/README.md",
-    "extension": ".md",
-    "size_bytes": 1758,
-    "sha256": "e286e0da1b8f6a339c08b8ad5ad3e7fcac7d5f26f97115a2e7d55404a011e852"
+    "path": "sopu-coder/Modelfile",
+    "extension": "Modelfile",
+    "size_bytes": 3289,
+    "sha256": "79d3e06bbc65cb3ffd5bbc0d5c9bc11911d6707d07706e7b4be54b5a01c97093"
   }
 ]
