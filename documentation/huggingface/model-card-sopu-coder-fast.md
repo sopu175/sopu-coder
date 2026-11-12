@@ -1,18 +1,18 @@
 ---
 language:
 - en
-- python
-- typescript
-- javascript
-- php
 license: apache-2.0
 tags:
 - code
 - coding
 - text-generation
-- qwen2.5
+- qwen3.5
 - ollama
 - gguf
+- python
+- typescript
+- javascript
+- php
 - autocomplete
 - low-latency
 pipeline_tag: text-generation

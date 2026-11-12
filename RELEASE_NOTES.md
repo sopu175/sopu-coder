@@ -46,3 +46,4 @@ ollama run sopu175/sopu-coder-fast:v1.0.0
 
 ## 📄 License & Attribution
 SopuCoder is open-source software under the [Apache License 2.0](LICENSE). Upstream foundation models are attributed to Alibaba Cloud under Tongyi Qianwen terms.
+

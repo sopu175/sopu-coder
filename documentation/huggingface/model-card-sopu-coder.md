@@ -1,10 +1,6 @@
 ---
 language:
 - en
-- python
-- typescript
-- javascript
-- php
 license: apache-2.0
 tags:
 - code
@@ -13,6 +9,10 @@ tags:
 - qwen2.5
 - ollama
 - gguf
+- python
+- typescript
+- javascript
+- php
 - react
 - fastapi
 - laravel
@@ -60,7 +60,7 @@ ollama run sopu175/sopu-coder:v1.0.0
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-model_id = "sopu175/sopu-coder"
+model_id = "saif24565/sopu-coder"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(

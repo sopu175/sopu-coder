@@ -34,3 +34,4 @@ Use this checklist for every new release or version bump of SopuCoder.
 - [ ] Pull and execute model from clean environment (`ollama run <namespace>/<model>:<tag>`).
 - [ ] Verify GitHub release assets and links.
 - [ ] Verify Hugging Face model cards render properly.
+

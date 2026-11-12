@@ -53,3 +53,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Licensing Framework:** Apache 2.0 source code license and upstream attribution notices (`LICENSE`).
 - **Initial Modelfiles:** Main model and fast model Ollama configurations.
 - **Roadmap & Contributing Docs:** Initial roadmap and governance framework (`documentation/`).
+

@@ -96,9 +96,8 @@ Configure your IDE extension (e.g., **Continue**, **Twinny**, or **CodeGPT**) to
 Pre-trained weights, quantized GGUF checkpoints, and dataset artifacts are distributed through Hugging Face.
 
 ### Model Hub Repositories
-- **Base & Fine-Tuned Weights:** `https://huggingface.co/sopucoder/sopu-coder`
-- **GGUF Quantizations:** `https://huggingface.co/sopucoder/sopu-coder-GGUF`
-- **Fast Variant:** `https://huggingface.co/sopucoder/sopu-coder-fast-GGUF`
+- **Standard Model (7B):** [https://huggingface.co/saif24565/sopu-coder](https://huggingface.co/saif24565/sopu-coder)
+- **Fast Model (4B):** [https://huggingface.co/saif24565/sopu-coder-fast](https://huggingface.co/saif24565/sopu-coder-fast)
 
 ### Usage with Python (`transformers`)
 
@@ -106,7 +105,7 @@ Pre-trained weights, quantized GGUF checkpoints, and dataset artifacts are distr
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-model_id = "sopucoder/sopu-coder"
+model_id = "saif24565/sopu-coder"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
