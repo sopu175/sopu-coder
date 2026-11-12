@@ -45,3 +45,4 @@
 1. **Interactive 3D / Creative Frontend:** Ingest 50+ curated Three.js, R3F, and GSAP examples into `datasets/v1.2/`.
 2. **SaaS Billing & Security:** Ingest Stripe Webhook idempotency, RBAC JWT token refresh, and multi-tenant isolation samples.
 3. **Figma MCP Integration:** Ingest design-token-to-Tailwind and Figma component translation patterns.
+

@@ -47,3 +47,4 @@
 1. **Interactive 3D / WebGL Density:** While basic Three.js geometry setups are generated cleanly, complex GLSL raymarching and custom post-processing shaders require larger prompt context and additional curated dataset examples.
 2. **GSAP Cleanup in React 19:** Models must strictly use `@gsap/react` `useGSAP` or `ctx.revert()` inside `useEffect` to prevent memory leaks during hot-module reloading.
 3. **Qwen3.5 Thinking Latency:** In `sopu-coder-fast` (4B), chain-of-thought tokens cause an initial latency delay of ~15-20 seconds before emitting simple inline code. Fine-tuned 1.5B standalone weights completely bypass this delay (~0.5s response).
+

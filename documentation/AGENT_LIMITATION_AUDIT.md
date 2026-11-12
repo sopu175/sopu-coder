@@ -88,3 +88,4 @@ Edit `~/.continue/config.json`:
 - Direct integration via `tools.agent_runtime.SopuCoderAgent`.
 - Supports tool definitions for file I/O, terminal command execution, and live APIs.
 - Fully compatible with OpenAI-compatible API schemas.
+
