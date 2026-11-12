@@ -1,0 +1,27 @@
+# ==============================================================================
+# SopuCoder-R1: Mergekit SLERP Fusion Recipe
+# Merges: Qwen2.5-Coder-7B-Instruct (Syntax & Coding) + DeepSeek-R1-Distill-Qwen-7B (Reasoning)
+# Author: Md. Saiful Islam (Saif)
+# Project: SopuCoder
+# Architecture: Qwen2ForCausalLM (28 layers, 3584 hidden_dim)
+# ==============================================================================
+
+slices:
+  - sources:
+      - model: Qwen/Qwen2.5-Coder-7B-Instruct
+        layer_range: [0, 28]
+      - model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+        layer_range: [0, 28]
+
+merge_method: slerp
+base_model: Qwen/Qwen2.5-Coder-7B-Instruct
+
+parameters:
+  t:
+    - filter: self_attn
+      value: [0.35, 0.50, 0.65, 0.50, 0.35]  # Balanced attention interpolation
+    - filter: mlp
+      value: [0.60, 0.50, 0.40, 0.50, 0.60]  # Retain high coding knowledge in FFN
+    - value: 0.50                            # Default 50/50 spherical interpolation
+
+dtype: bfloat16

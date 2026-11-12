@@ -1,8 +1,8 @@
 [
   {
-    "path": "sopu-coder/Modelfile",
-    "extension": "Modelfile",
-    "size_bytes": 3289,
-    "sha256": "79d3e06bbc65cb3ffd5bbc0d5c9bc11911d6707d07706e7b4be54b5a01c97093"
+    "path": "documentation/MODEL_MERGE_AND_HYBRID_GUIDE.md",
+    "extension": ".md",
+    "size_bytes": 2795,
+    "sha256": "b273329b0032df03cfba410b896d227db3ad8a9a751bebd325619a2345adbf95"
   }
 ]
