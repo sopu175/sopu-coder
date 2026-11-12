@@ -77,3 +77,4 @@ python3 convert_hf_to_gguf.py ../training/checkpoints/sopu-coder-merged --outfil
 ollama create sopu-coder -f sopu-coder/Modelfile.release
 ollama run sopu-coder
 ```
+

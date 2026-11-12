@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: SopuCoder Community Discussions
+    url: https://github.com/sopu175/sopu-coder/discussions
+    about: Ask general questions, share IDE setups, and discuss model training ideas.
