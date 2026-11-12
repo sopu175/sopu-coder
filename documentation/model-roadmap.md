@@ -8,7 +8,7 @@ This document outlines the progressive release milestones and architectural traj
 | :--- | :--- | :--- | :--- |
 | **v0.1.0** | Initial Project Foundation | Repository structure, root README, initial Modelfiles, gitkeep structure, licensing & attribution framework. | **Completed** |
 | **v0.2.0** | Model Configurations & Benchmarks | Candidate model verification (`sopu-coder:v1-candidate`, `sopu-coder-fast:v1-candidate`), benchmark evaluation test suite (generation, debugging, refactoring, latency). | **Completed** |
-| **v0.3.0** | Validated Datasets | Multi-language datasets (Python, TypeScript, React, JS, PHP), license audits, deduplication, and test/train splits. | Planned |
+| **v0.3.0** | Validated Datasets | Multi-language datasets (Python, TypeScript, React, JS, PHP), license audits, deduplication, and test/train splits. | **Completed** |
 | **v0.5.0** | Fine-Tuning Pipeline | LoRA/QLoRA recipes, tokenization scripts, training configurations, and loss/accuracy logging. | Planned |
 | **v1.0.0** | Public Multi-Channel Release | Validated weights on Hugging Face, versioned models on Ollama Registry, comprehensive documentation. | Target |
 

@@ -57,3 +57,4 @@
 ## 💡 Recommendation for Release & IDE Configuration
 - **SopuCoder (`sopu-coder`):** Best suited as primary chat assistant, refactoring engine, and multi-file architect in VS Code / Cursor (Continue plugin: `model: sopu-coder`).
 - **SopuCoder Fast (`sopu-coder-fast`):** Best suited for instant tab-autocomplete and inline completions where raw token velocity is critical (`tabAutocompleteModel: sopu-coder-fast`).
+
