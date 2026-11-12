@@ -13,9 +13,9 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Phase 7** | Release Readiness Audit | **Completed** | No (Local Audit) | [RELEASE_READINESS.md](../RELEASE_READINESS.md) |
 | **Phase 8** | Model Packaging & Verification | **Completed** | No (Local Prep) | Local artifacts verified, reproducible builds documented |
-| **Phase 9** | GitHub Public Release Prep | **In Progress** | **YES (for public release)** | CHANGELOG.md, RELEASE_NOTES.md, v1.0.0 prep |
-| **Phase 10** | Ollama Registry Publication | **Pending Approval** | **YES (before `ollama push`)** | Models tagged locally as `sopu175/sopu-coder:v1.0.0` |
-| **Phase 11** | Hugging Face Hub Publication | **Pending Approval** | **YES (before repo creation/upload)** | Model cards ready, awaiting account auth |
+| **Phase 9** | GitHub Public Release Prep | **Completed** | **Approved & Pushed** | Commit `b412f20`, Tag `v1.0.0` live on GitHub |
+| **Phase 10** | Ollama Registry Publication | **In Progress** | **Sign-in Required** | Connect link generated, awaiting user auth |
+| **Phase 11** | Hugging Face Hub Publication | **Pending Input** | **HF Token Required** | Model cards ready, awaiting account auth |
 | **Phase 12** | Cross-Platform Release Validation | **Not Started** | No (Post-publish verification) | Validation of pull/clone across 3 platforms |
 | **Phase 13** | Community Distribution | **In Progress** | No | Usage guides, contribution workflows |
 | **Phase 14** | Long-Term Release Maintenance | **In Progress** | No | [RELEASE_CHECKLIST.md](../RELEASE_CHECKLIST.md), deprecation policy |
@@ -46,3 +46,4 @@
 1. **Ollama Push Approval:** User approval needed before executing `ollama push sopu175/sopu-coder:v1.0.0` and `ollama push sopu175/sopu-coder-fast:v1.0.0`.
 2. **Hugging Face Token:** User needs to provide / configure `HF_TOKEN` or authenticate with `huggingface-cli login`.
 3. **GitHub Release Publishing:** User approval needed to officially publish GitHub release draft.
+
