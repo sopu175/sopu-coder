@@ -56,3 +56,4 @@ ollama run sopu-coder-r1 "Design a distributed rate-limiter using Redis token bu
 | **`sopu-coder`** | Qwen2.5-Coder 7B | 4.7 GB / ~5.2 GB | ~15-18 tok/s | Implicit | High-volume daily coding, Next.js 15, Laravel 11 |
 | **`sopu-coder-r1`** | DeepSeek-R1 + Qwen 7B | 4.7 GB / ~5.2 GB | ~15-17 tok/s | Explicit (<think>) | Hard algorithmic logic, bug root-cause analysis |
 | **`sopu-coder-fast`** | Qwen3.5 4B / Qwen 1.5B | 3.3 GB / ~2.1 GB | ~30-50+ tok/s | Minimal | Real-time inline tab-completions & quick edits |
+
