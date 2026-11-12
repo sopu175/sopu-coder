@@ -52,3 +52,4 @@ A cyclical engineering framework for advancing SopuCoder from evaluated prompt c
 - Full adapter fusion into 16-bit standalone weights.
 - Multi-format distribution (GGUF Q4_K_M, Q5_K_M, Q8_0, AWQ, EXL2).
 - Native IDE plugins (VS Code, Cursor, Neovim) pre-configured for SopuCoder endpoints.
+

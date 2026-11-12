@@ -64,3 +64,4 @@ To prepare SopuCoder for genuine fine-tuning, the dataset must expand to high-qu
   - `"attribution": "SopuCoder Contributors"`
   - `"quality_score": >= 0.95`
   - Sanitized code (zero credentials, no private tokens, no hallucinated APIs).
+
