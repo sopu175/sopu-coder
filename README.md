@@ -54,14 +54,14 @@ SopuCoder offers tailored variants designed for distinct workflows and hardware 
 
 SopuCoder is fully integrated with [Ollama](https://ollama.com) for effortless local deployment.
 
-### 1. Run via Ollama Registry (Once Published)
+### 1. Run via Ollama Registry (Official Public Models)
 
 ```bash
-# Run standard SopuCoder for general programming & reasoning
-ollama run sopucoder/sopu-coder
+# Run standard SopuCoder for full-stack programming & deep architecture
+ollama run sopu175/sopu-coder
 
-# Run lightweight SopuCoder Fast for ultra-fast completions
-ollama run sopucoder/sopu-coder-fast
+# Run lightweight SopuCoder Fast for ultra-fast completions & tab assist
+ollama run sopu175/sopu-coder-fast
 ```
 
 ### 2. Build Locally with Modelfile

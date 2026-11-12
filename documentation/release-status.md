@@ -14,7 +14,7 @@
 | **Phase 7** | Release Readiness Audit | **Completed** | No (Local Audit) | [RELEASE_READINESS.md](../RELEASE_READINESS.md) |
 | **Phase 8** | Model Packaging & Verification | **Completed** | No (Local Prep) | Local artifacts verified, reproducible builds documented |
 | **Phase 9** | GitHub Public Release Prep | **Completed** | **Approved & Pushed** | Commit `b412f20`, Tag `v1.0.0` live on GitHub |
-| **Phase 10** | Ollama Registry Publication | **In Progress** | **Sign-in Required** | Connect link generated, awaiting user auth |
+| **Phase 10** | Ollama Registry Publication | **Completed** | **Live on Registry** | `ollama.com/sopu175/sopu-coder` & `sopu-coder-fast` |
 | **Phase 11** | Hugging Face Hub Publication | **Pending Input** | **HF Token Required** | Model cards ready, awaiting account auth |
 | **Phase 12** | Cross-Platform Release Validation | **Not Started** | No (Post-publish verification) | Validation of pull/clone across 3 platforms |
 | **Phase 13** | Community Distribution | **In Progress** | No | Usage guides, contribution workflows |
