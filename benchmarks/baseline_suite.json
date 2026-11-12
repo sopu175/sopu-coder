@@ -1,0 +1,133 @@
+{
+  "suite_name": "SopuCoder Comprehensive 18-Domain Baseline Benchmark",
+  "version": "1.0.0",
+  "domains": 18,
+  "tests": [
+    {
+      "id": "dom_01_ts_js",
+      "category": "JavaScript & TypeScript",
+      "title": "Type-Safe Nominal Event Bus with Generics",
+      "prompt": "Implement a type-safe EventBus in TypeScript where event names and their corresponding payload types are strictly mapped via a generic interface. Include `subscribe`, `publish`, and an unsubscribe function returned from subscribe. Output code only.",
+      "criteria": "Strict TypeScript generics, no 'any', returns unsubscribe callback, proper map/set subscription storage."
+    },
+    {
+      "id": "dom_02_react",
+      "category": "React",
+      "title": "Compound Modal Component with ARIA and Context",
+      "prompt": "Build a compound React Modal component (`Modal`, `Modal.Trigger`, `Modal.Content`, `Modal.Close`) using React Context, Portal, and proper ARIA accessibility attributes (dialog, modal, aria-labelledby). Output code only.",
+      "criteria": "Compound pattern, React Context, Portal usage, focus trap/escape listener or clean accessibility."
+    },
+    {
+      "id": "dom_03_nextjs",
+      "category": "Next.js App Router",
+      "title": "Server Action with Zod Validation and Optimistic State",
+      "prompt": "Write a Next.js 14/15 Server Action for updating a user profile with Zod schema validation, revalidatePath, and safe error serialization. Output code only.",
+      "criteria": "use server directive, Zod parse/safeParse, revalidatePath, structured return { success, errors }."
+    },
+    {
+      "id": "dom_04_nodejs",
+      "category": "Node.js",
+      "title": "Backpressure-Managed NDJSON Stream Pipeline",
+      "prompt": "Write a Node.js script creating a Transform stream pipeline that parses a 10GB NDJSON file, filters records, and writes to an output stream while properly respecting backpressure and error events. Output code only.",
+      "criteria": "Stream pipeline or pipeline API, Transform class implementation, backpressure handling, error cleanup."
+    },
+    {
+      "id": "dom_05_php_laravel",
+      "category": "PHP & Laravel",
+      "title": "Laravel 11 Idempotent Queued Job with Exponential Backoff",
+      "prompt": "Write a Laravel 11 Queued Job class implementing `ShouldQueue` with exponential backoff (`$backoff = [10, 60, 300]`), max 3 tries, PHP 8.3 Backed Enum for status, and a database transaction. Output code only.",
+      "criteria": "ShouldQueue, $tries, $backoff array, PHP 8.3 enum, DB::transaction."
+    },
+    {
+      "id": "dom_06_yii2_wordpress",
+      "category": "Yii2 & WordPress",
+      "title": "WordPress REST Controller with Nonce and $wpdb->prepare",
+      "prompt": "Write a custom WordPress REST API controller class registering `/wp-json/sopu/v1/analytics` with `permission_callback`, nonce verification, and a parameterized `$wpdb->prepare` query. Output code only.",
+      "criteria": "WP_REST_Controller or register_rest_route, check_ajax_referer or current_user_can permission_callback, $wpdb->prepare SQL."
+    },
+    {
+      "id": "dom_07_python",
+      "category": "Python",
+      "title": "SQLAlchemy 2.0 Async Generic Repository Pattern",
+      "prompt": "Write a generic async repository class in Python using SQLAlchemy 2.0 (`AsyncSession`, `select`, `update`) supporting `get_by_id`, `create`, and `list` with type hints. Output code only.",
+      "criteria": "Generic TypeVar, AsyncSession, select(self.model), async def, clean type annotations."
+    },
+    {
+      "id": "dom_08_threejs",
+      "category": "Three.js",
+      "title": "Procedural Particle Swarm with Custom ShaderMaterial",
+      "prompt": "Write a complete Three.js setup creating a procedural particle swarm using `BufferGeometry`, `Float32Array` attributes for positions, and a custom `ShaderMaterial` with vertex/fragment shaders for glowing points. Output code only.",
+      "criteria": "BufferGeometry, setAttribute, ShaderMaterial with vertexShader/fragmentShader, animation loop."
+    },
+    {
+      "id": "dom_09_react_three_fiber",
+      "category": "React Three Fiber",
+      "title": "Interactive 3D Mesh Component with Drei and Animation",
+      "prompt": "Write a React Three Fiber component using `@react-three/fiber` and `@react-three/drei` (`OrbitControls`, `useFrame`) that renders an animated floating icosahedron with hover scale effects. Output code only.",
+      "criteria": "useFrame hook, mesh reference, hover event handlers, OrbitControls, TypeScript types."
+    },
+    {
+      "id": "dom_10_gsap",
+      "category": "GSAP",
+      "title": "GSAP ScrollTrigger Horizontal Pinning with useGSAP",
+      "prompt": "Write a React component using GSAP and `ScrollTrigger` with the `@gsap/react` `useGSAP` hook that pins a section and scrolls content horizontally, with proper cleanup. Output code only.",
+      "criteria": "useGSAP hook, ScrollTrigger.create or timeline, pin: true, scrub, scope ref."
+    },
+    {
+      "id": "dom_11_saas_architecture",
+      "category": "SaaS Architecture",
+      "title": "PostgreSQL Row-Level Security (RLS) Multi-Tenant Migration",
+      "prompt": "Write PostgreSQL DDL commands to configure Row-Level Security (RLS) on an `organizations` and `projects` table, creating tenant isolation policies based on `current_setting('app.current_tenant_id')`. Output SQL only.",
+      "criteria": "ALTER TABLE ... ENABLE ROW LEVEL SECURITY, CREATE POLICY ... USING (tenant_id = current_setting(...))."
+    },
+    {
+      "id": "dom_12_database_migrations",
+      "category": "Database Migrations",
+      "title": "Zero-Downtime Column Rename Migration Plan",
+      "prompt": "Explain and write the SQL / migration steps for renaming a column `customer_name` to `full_name` in a 100-million-row production table with zero downtime (Expand-and-Contract phase). Output code/steps only.",
+      "criteria": "Phase 1: Add new column; Phase 2: Dual-write trigger; Phase 3: Backfill; Phase 4: App cutover; Phase 5: Drop old column."
+    },
+    {
+      "id": "dom_13_technical_seo",
+      "category": "Technical SEO",
+      "title": "Next.js Dynamic JSON-LD Structured Data Generator",
+      "prompt": "Write a Next.js 14/15 React Server Component that dynamically renders Google-compliant JSON-LD `SoftwareApplication` structured data script along with `generateMetadata` for dynamic OpenGraph and Twitter cards. Output code only.",
+      "criteria": "generateMetadata function, OpenGraph/Twitter card schema, script type=\"application/ld+json\"."
+    },
+    {
+      "id": "dom_14_testing",
+      "category": "Testing",
+      "title": "Vitest and Testing-Library Custom Hook Test",
+      "prompt": "Write a complete Vitest unit test suite for a custom `useDebounce` hook using `@testing-library/react` `renderHook` and `act`, using fake timers. Output code only.",
+      "criteria": "describe, it, vi.useFakeTimers, renderHook, act, vi.advanceTimersByTime, expect."
+    },
+    {
+      "id": "dom_15_debugging",
+      "category": "Debugging",
+      "title": "Thread-Safe Memory Cache Race Condition Fix",
+      "prompt": "Here is buggy Python code with a race condition:\n```python\nclass Cache:\n    def __init__(self):\n        self.data = {}\n    def get_or_set(self, key, factory):\n        if key not in self.data:\n            self.data[key] = factory()\n        return self.data[key]\n```\nIdentify the race condition in a multi-threaded web server and provide the robust thread-safe fix using `threading.Lock`. Output code only.",
+      "criteria": "threading.Lock, double-checked locking or lock context manager preventing duplicate factory calls."
+    },
+    {
+      "id": "dom_16_refactoring",
+      "category": "Refactoring",
+      "title": "Legacy Procedural Order Calculator to Modern PSR-12 OOP",
+      "prompt": "Refactor this procedural PHP code:\n```php\nfunction calc($t, $p) { if ($t == 'tax') return $p * 1.2; else if ($t == 'disc') return $p * 0.9; return $p; }\n```\ninto a modern PHP 8.3 PSR-12 enum-based strategy pattern with `declare(strict_types=1)` and readonly classes. Output code only.",
+      "criteria": "declare(strict_types=1), PHP 8.3 backed enum or match expression, readonly DTO/service, strict typing."
+    },
+    {
+      "id": "dom_17_multi_file_editing",
+      "category": "Multi-File Editing",
+      "title": "Synchronized Backend Endpoint and Frontend Fetch Client",
+      "prompt": "Write both: 1) A FastAPI endpoint `PUT /api/v1/settings` accepting a Pydantic `UserSettings` schema, and 2) The exact matching TypeScript interface and fetch client function. Ensure 100% field parity and error typing. Output code only.",
+      "criteria": "Pydantic BaseModel with exact fields, TypeScript interface matching fields, fetch client with types."
+    },
+    {
+      "id": "dom_18_tool_calling",
+      "category": "Tool Calling",
+      "title": "Structured Tool Invocation for Weather API",
+      "prompt": "Given a tool schema:\n`{\"name\": \"get_current_weather\", \"parameters\": {\"location\": \"string\"}}`\nThe user asks: 'What is the current temperature in Dhaka right now?'\nOutput the structured tool call invocation in valid JSON.",
+      "criteria": "Valid JSON tool call invoking get_current_weather with location: 'Dhaka'."
+    }
+  ]
+}

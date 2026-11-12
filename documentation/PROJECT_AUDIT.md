@@ -46,3 +46,4 @@
    When asked queries requiring live external data (e.g., weather, live docs), the model defaults to generating raw unexecuted JSON (`webfetch` with invalid OpenWeatherMap API keys) because no client-side tool execution dispatch loop exists.
 3. **Dataset Scope:**
    Datasets currently cover 36 curated software engineering records (`datasets/v1.1/`). Expansion is required for interactive frontends (Three.js, GSAP) and full-stack SaaS architectures.
+

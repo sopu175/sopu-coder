@@ -252,3 +252,4 @@ def web_fetch(url: str, max_length: int = 4000) -> Dict[str, Any]:
             }
     except Exception as e:
         return {"error": f"Failed to fetch '{url}': {str(e)}"}
+

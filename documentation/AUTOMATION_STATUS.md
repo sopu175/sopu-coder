@@ -18,3 +18,4 @@
 | **GitHub Deployment** | Git SSH Automation | **Active** | Automated tagging and commits to `origin/main` |
 | **Hugging Face Hub** | `hf` CLI & Hub API | **Active** | Authenticated as `saif24565`, model cards & adapters live |
 | **Ollama Registry** | `ollama` CLI | **Active** | Authenticated as `sopu175`, models published |
+

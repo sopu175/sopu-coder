@@ -26,3 +26,4 @@
   - `fine-tuning/`: LoRA training configs and scripts.
 - `tools/`: Native Ollama tool execution runtime and registered tools (Open-Meteo, Web Fetcher, File IO).
 - `documentation/`: Living audit, roadmap, release tracking, and benchmark records.
+

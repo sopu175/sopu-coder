@@ -91,3 +91,4 @@ flowchart TD
 - [ ] Implement `scripts/pre_publish_audit.py` (explicit allowlist, zero exposed tokens).
 - [ ] Automated publishing to GitHub, Ollama Registry, and Hugging Face Hub.
 - [ ] Maintain rollback safety and immutable version tags.
+

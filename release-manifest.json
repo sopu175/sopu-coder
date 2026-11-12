@@ -1,50 +1,98 @@
 [
   {
-    "path": "documentation/AUTOMATION_STATUS.md",
+    "path": "datasets/DATASET_SELECTION_REPORT.md",
     "extension": ".md",
-    "size_bytes": 1433,
-    "sha256": "cb25cceb5450b23f3616c130bddbd322944bd5d7e8a766adc40497266adb65aa"
+    "size_bytes": 3099,
+    "sha256": "22647dd9611b73f5478c5b7dee7b0b2eb5c0af2707b5009fc0699f29e41e5019"
+  },
+  {
+    "path": "datasets/DATASET_SOURCE_REGISTRY.md",
+    "extension": ".md",
+    "size_bytes": 3872,
+    "sha256": "6613fc899651886283c311a196e05fb2728575764059f24237763474c6d4013e"
+  },
+  {
+    "path": "documentation/AGENT_LIMITATION_AUDIT.md",
+    "extension": ".md",
+    "size_bytes": 4096,
+    "sha256": "817e05c599b1971ccd210eb043d4e7006a1ce4cf8e74e5b8c53874558db71d01"
+  },
+  {
+    "path": "documentation/BASELINE_BENCHMARKS.md",
+    "extension": ".md",
+    "size_bytes": 4336,
+    "sha256": "4b03e319ae3bba8e5610dc47ba536459060908440824d3781dcdd9e1cd8ccead"
+  },
+  {
+    "path": "documentation/CAPABILITY_MATRIX.md",
+    "extension": ".md",
+    "size_bytes": 4417,
+    "sha256": "3dd3c684e8cd34570daba4348234d0d3c2bb16ab29457233cc0ea0d7fc1d3859"
   },
   {
     "path": "documentation/MASTER_EXECUTION_PLAN.md",
     "extension": ".md",
-    "size_bytes": 4806,
-    "sha256": "0ad4f9c4a3f31828fc6b473bfaf5be74bd86da20835dc3ed365aea8ed829e29f"
+    "size_bytes": 4807,
+    "sha256": "e1dafc7c17f34c0a8fd7bd765219c847e5ef1cbcdaf381e972f7b2e807ba2983"
   },
   {
     "path": "documentation/NEXT_ACTIONS.md",
     "extension": ".md",
-    "size_bytes": 1495,
-    "sha256": "a33f129c725a7877f2c563b84bd368ecf9830ab44716a0591be7ab355434c88a"
+    "size_bytes": 1496,
+    "sha256": "94d4c85ce03954fad3c9b78381664a399ecb535ab9f5bb99b91918306d93ebdc"
   },
   {
     "path": "documentation/PROJECT_AUDIT.md",
     "extension": ".md",
-    "size_bytes": 2965,
-    "sha256": "ba1f9009c8f863d0aa0e07735ba2d292f102d1cbe5e11e499b78b022fa5d53b8"
+    "size_bytes": 2966,
+    "sha256": "c06664ea8e72e464ea6aab72d4424b819e29831198c6b41e6506ad3a4ed28c84"
   },
   {
     "path": "documentation/PROJECT_CONTEXT.md",
     "extension": ".md",
-    "size_bytes": 1770,
-    "sha256": "a99782d65b8a4f8ce0ce913fef3dbf6053d588471c40574b15da749374aa1986"
+    "size_bytes": 1771,
+    "sha256": "f71912f0413ad1f35592bf4545502d1745728142b02318e3d80cb727ee182ec1"
+  },
+  {
+    "path": "scripts/pre_publish_audit.py",
+    "extension": ".py",
+    "size_bytes": 5177,
+    "sha256": "0dfa18070d5c51a5c60d2361d22dc6c0bdbb42ae3d62f175d48a6406fc499850"
   },
   {
     "path": "sopu-coder-fast/Modelfile",
     "extension": "Modelfile",
-    "size_bytes": 2276,
-    "sha256": "d0023a45a48be972ee4681b9ca588b5b7b5ff07e971da8f6a4618dd5bfe9838b"
+    "size_bytes": 1473,
+    "sha256": "41227c587429ed16772d0fef5f3e7787161212385048ea1ded5f4f04f8b78ddf"
   },
   {
-    "path": "sopu-coder/Modelfile",
-    "extension": "Modelfile",
-    "size_bytes": 3026,
-    "sha256": "10b28be410588d4bff9632e167c30fc9eff218560e0730e7985cb46545bc2f91"
+    "path": "tests/test_tool_calling.py",
+    "extension": ".py",
+    "size_bytes": 3727,
+    "sha256": "6674fb7cb39b32dcb6a7117bfcf4d048c49732c96743d5c5450ef1c9c7360c03"
   },
   {
-    "path": "training/evaluation/EVALUATION_REPORT.md",
-    "extension": ".md",
-    "size_bytes": 5759,
-    "sha256": "6f270046c1ab9f27883795e799d979b204c489bd9dfe4acddb091d1ebd845e12"
+    "path": "tools/__init__.py",
+    "extension": ".py",
+    "size_bytes": 225,
+    "sha256": "75973183ab6fb5bb3c6621dc476cf77fad734074aa346adfaea33fa4f72298c8"
+  },
+  {
+    "path": "tools/agent_runtime.py",
+    "extension": ".py",
+    "size_bytes": 7303,
+    "sha256": "f934c02fcb4c59daa9060e3dcdc4ea77bbbe0fa062349de852621b7479023a53"
+  },
+  {
+    "path": "tools/cli.py",
+    "extension": ".py",
+    "size_bytes": 3067,
+    "sha256": "5f232457f0618ba3f1d0065e10bd5860d8aa3a974af57a5eff981ff33ec8bd33"
+  },
+  {
+    "path": "tools/registry.py",
+    "extension": ".py",
+    "size_bytes": 8551,
+    "sha256": "2267ff3b8e794da31b68587723d4b91ac661e48a16fe4764623364cffdb892fa"
   }
 ]
