@@ -5,3 +5,4 @@ This configuration is part of the SopuCoder ecosystem.
 - Base Foundation Model: Qwen 2.5 Coder 1.5B (subject to upstream open license by Alibaba Cloud)
 
 See root [LICENSE](../LICENSE) for complete licensing and attribution details.
+

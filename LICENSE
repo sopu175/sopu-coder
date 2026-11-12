@@ -10,3 +10,4 @@ Copyright (c) 2026 SopuCoder Contributors.
 SopuCoder candidate configurations derive from open-weights base architectures:
 - **Qwen 2.5 Coder Base Models:** Subject to the Tongyi Qianwen License Agreement and Apache 2.0 where applicable by Alibaba Cloud.
 - **Attribution Notice:** Any redistribution of fine-tuned weights or model checkpoints will clearly disclose the underlying base foundation model and abide by all upstream distribution terms and compute restrictions.
+

@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "suite": "SopuCoder Benchmark Suite",
+  "tests": [
+    {
+      "id": "code_gen_react_ts",
+      "category": "Code generation",
+      "title": "Async Debounced Hook with AbortController",
+      "language": "TypeScript/React",
+      "prompt": "Write a complete, production-grade custom React hook named `useDebouncedAsync` in TypeScript. Requirements:\n1. Accepts an async function and a debounce delay in milliseconds.\n2. Uses `AbortController` to cancel pending in-flight requests if triggered again before completion.\n3. Returns `{ execute, data, error, isLoading, cancel }` with full TypeScript generics.\n4. Provide the complete code block.",
+      "eval_criteria": "Must include AbortController, correct generic types, proper cleanup on unmount/re-trigger, and complete working syntax."
+    },
+    {
+      "id": "debugging_python_race",
+      "category": "Debugging",
+      "title": "Thread-safe Concurrent Cache Race Condition",
+      "language": "Python",
+      "prompt": "Identify and fix the bug in this Python class:\n\n```python\nimport time\nimport threading\n\nclass TTLCache:\n    def __init__(self):\n        self.cache = {}\n        self.lock = threading.Lock()\n\n    def set(self, key, value, ttl):\n        self.cache[key] = (value, time.time() + ttl)\n\n    def get(self, key):\n        if key in self.cache:\n            val, expiry = self.cache[key]\n            if time.time() < expiry:\n                return val\n            del self.cache[key]\n        return None\n```\nExplain the concurrency bug and provide the complete fixed, thread-safe implementation.",
+      "eval_criteria": "Must identify that read and delete/write operations are outside the lock (race condition), and provide full synchronization using `self.lock`."
+    },
+    {
+      "id": "refactoring_php8_clean",
+      "category": "Refactoring",
+      "title": "Legacy Order Processor to Modern PHP 8 Service",
+      "language": "PHP",
+      "prompt": "Refactor this legacy PHP function into a modern PHP 8.2+ class adhering to PSR-12, strict types, constructor property promotion, and match expressions:\n\n```php\nfunction process_order($data, $gateway) {\n    if (empty($data['id'])) return false;\n    $status = 'pending';\n    switch ($data['type']) {\n        case 'card': $fee = 2.5; break;\n        case 'crypto': $fee = 1.0; break;\n        default: $fee = 0.0;\n    }\n    $total = $data['amount'] + $fee;\n    return ['order_id' => $data['id'], 'total' => $total, 'status' => 'processed'];\n}\n```\nProvide the clean OOP service implementation with proper types and an OrderResult DTO.",
+      "eval_criteria": "Must use declare(strict_types=1), readonly properties/DTO, match expression, and clean dependency injection."
+    },
+    {
+      "id": "multi_file_consistency",
+      "category": "Multi-file consistency",
+      "title": "FastAPI Endpoint and TypeScript Client Synchrony",
+      "language": "Python / TypeScript",
+      "prompt": "Generate two consistent files for a user profile update feature:\n1. `backend/routes/user.py`: A FastAPI endpoint `PATCH /api/v1/users/me` with Pydantic model (`UpdateUserProfileRequest`) containing fields: `displayName: str` (min 3 chars), `bio: Optional[str]`, and `marketingOptIn: bool`.\n2. `frontend/src/api/userApi.ts`: A TypeScript fetch function `updateUserProfile(payload: UpdateUserProfileDTO)` matching the exact endpoint, HTTP method, and types.\nEnsure zero naming mismatch between backend and frontend.",
+      "eval_criteria": "Exact matching of field names (camelCase/snake_case mapping handled), correct HTTP PATCH verb, and URL parity."
+    },
+    {
+      "id": "tool_calling_sql",
+      "category": "Tool calling",
+      "title": "Structured Database Query Tool Invocation",
+      "language": "JSON / Tool Calling",
+      "prompt": "You have access to a tool named `execute_sql_query` with schema:\n`{\"name\": \"execute_sql_query\", \"parameters\": {\"query\": \"string\", \"readonly\": \"boolean\", \"timeout_sec\": \"integer\"}}`\n\nThe user says: 'Find the top 5 customers with the highest total order spend in 2026 from the orders table.'\nReturn ONLY the structured tool call in valid JSON format.",
+      "eval_criteria": "Valid JSON tool call invoking execute_sql_query with appropriate SQL query (GROUP BY customer_id, SUM, WHERE year=2026, ORDER BY DESC LIMIT 5) and readonly=true."
+    },
+    {
+      "id": "latency_speed_test",
+      "category": "Latency",
+      "title": "Standard Algorithmic Throughput Benchmark",
+      "language": "Python",
+      "prompt": "Write an efficient Python implementation of the Knapsack 0/1 dynamic programming algorithm with space optimization to O(W). Include docstrings and complexity analysis.",
+      "eval_criteria": "Evaluated primarily for response latency (TTFT), total completion time, and token generation speed (tokens/sec)."
+    }
+  ]
+}
+

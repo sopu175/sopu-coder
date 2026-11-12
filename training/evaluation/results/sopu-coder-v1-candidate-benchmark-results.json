@@ -1,0 +1,103 @@
+{
+  "model": "sopu-coder:v1-candidate",
+  "timestamp": "2026-11-12T05:37:25Z",
+  "suite_version": "1.0.0",
+  "tests": [
+    {
+      "id": "code_gen_react_ts",
+      "category": "Code generation",
+      "title": "Async Debounced Hook with AbortController",
+      "language": "TypeScript/React",
+      "eval_criteria": "Must include AbortController, correct generic types, proper cleanup on unmount/re-trigger, and complete working syntax.",
+      "metrics": {
+        "total_duration_sec": 44.375,
+        "eval_count": 657,
+        "tokens_per_sec": 17.08,
+        "prompt_tokens": 325
+      },
+      "output_preview": "```typescript\nimport { useState, useCallback, useRef } from 'react';\n\ntype AsyncFunction<T> = (...args: any[]) => Promise<T>;\n\ninterface UseDebouncedAsyncResult<T> {\n  execute: (...args: Parameters<AsyncFunction<T>>) => void;\n  data: T | null;\n  error: Error | null;\n  isLoading: boolean;\n  cancel: (...",
+      "full_response": "```typescript\nimport { useState, useCallback, useRef } from 'react';\n\ntype AsyncFunction<T> = (...args: any[]) => Promise<T>;\n\ninterface UseDebouncedAsyncResult<T> {\n  execute: (...args: Parameters<AsyncFunction<T>>) => void;\n  data: T | null;\n  error: Error | null;\n  isLoading: boolean;\n  cancel: () => void;\n}\n\nexport const useDebouncedAsync = <T>(\n  asyncFunc: AsyncFunction<T>,\n  debounceDelay: number\n): UseDebouncedAsyncResult<T> => {\n  const [data, setData] = useState<T | null>(null);\n  const [error, setError] = useState<Error | null>(null);\n  const [isLoading, setIsLoading] = useState<boolean>(false);\n  const abortControllerRef = useRef<AbortController | null>(null);\n\n  const execute = useCallback(\n    async (...args: Parameters<AsyncFunction<T>>) => {\n      if (abortControllerRef.current) {\n        abortControllerRef.current.abort();\n      }\n      abortControllerRef.current = new AbortController();\n\n      setIsLoading(true);\n      setError(null);\n      setData(null);\n\n      try {\n        const response = await asyncFunc(...args, { signal: abortControllerRef.current.signal });\n        setData(response);\n      } catch (err) {\n        if (err.name === 'AbortError') {\n          return; // Ignore the error if the request was aborted\n        }\n        setError(err as Error);\n      } finally {\n        setIsLoading(false);\n      }\n    },\n    [asyncFunc, debounceDelay]\n  );\n\n  const cancel = useCallback(() => {\n    if (abortControllerRef.current) {\n      abortControllerRef.current.abort();\n      abortControllerRef.current = null;\n    }\n  }, []);\n\n  return { execute, data, error, isLoading, cancel };\n};\n```\n\n### Explanation:\n1. **Type Definitions**:\n   - `AsyncFunction<T>`: A generic type for an async function that returns a value of type `T`.\n   - `UseDebouncedAsyncResult<T>`: An interface defining the return type of the custom hook, including the `execute` function, data, error, loading state, and cancel function.\n\n2. **State Management**:\n   - `data`: Holds the result of the async function.\n   - `error`: Holds any errors that occur during the execution.\n   - `isLoading`: Indicates whether the async function is currently running.\n   - `abortControllerRef`: Ref to manage the `AbortController` for canceling requests.\n\n3. **execute Function**:\n   - Aborts any ongoing request if a new one is triggered.\n   - Sets the loading state to true and clears any previous error or data.\n   - Executes the async function with the provided arguments and the `AbortSignal` from the `AbortController`.\n   - Updates the state based on the result or error of the async function.\n   - Resets the loading state to false after the operation completes.\n\n4. **cancel Function**:\n   - Aborts any ongoing request if it exists.\n\nThis hook ensures that only the most recent request is processed, and any previous requests are canceled, preventing unnecessary data fetching and potential memory leaks."
+    },
+    {
+      "id": "debugging_python_race",
+      "category": "Debugging",
+      "title": "Thread-safe Concurrent Cache Race Condition",
+      "language": "Python",
+      "eval_criteria": "Must identify that read and delete/write operations are outside the lock (race condition), and provide full synchronization using `self.lock`.",
+      "metrics": {
+        "total_duration_sec": 24.547,
+        "eval_count": 386,
+        "tokens_per_sec": 16.35,
+        "prompt_tokens": 373
+      },
+      "output_preview": "The concurrency bug in the `TTLCache` class is that it does not properly handle concurrent access to the cache. Specifically, when multiple threads are accessing the cache simultaneously, there can be race conditions where one thread reads a value before another thread has had a chance to update it....",
+      "full_response": "The concurrency bug in the `TTLCache` class is that it does not properly handle concurrent access to the cache. Specifically, when multiple threads are accessing the cache simultaneously, there can be race conditions where one thread reads a value before another thread has had a chance to update it.\n\nTo fix this, we need to ensure that all operations on the cache are thread-safe. We can achieve this by using a lock to synchronize access to the cache dictionary.\n\nHere is the complete fixed, thread-safe implementation of the `TTLCache` class:\n\n```python\nimport time\nimport threading\n\nclass TTLCache:\n    def __init__(self):\n        self.cache = {}\n        self.lock = threading.Lock()\n\n    def set(self, key, value, ttl):\n        with self.lock:\n            self.cache[key] = (value, time.time() + ttl)\n\n    def get(self, key):\n        with self.lock:\n            if key in self.cache:\n                val, expiry = self.cache[key]\n                if time.time() < expiry:\n                    return val\n                del self.cache[key]\n        return None\n```\n\nExplanation of the fix:\n\n1. **Lock Initialization**: We initialize a `threading.Lock` object in the constructor to ensure that only one thread can access the cache at a time.\n\n2. **Context Manager for Locking**: In both the `set` and `get` methods, we use a context manager (`with self.lock:`) to acquire and release the lock automatically. This ensures that the lock is held during the critical section of code where the cache is modified or accessed.\n\n3. **Thread Safety**: By using the lock, we ensure that when one thread is reading from or writing to the cache, no other thread can do so simultaneously. This prevents race conditions and ensures that the cache operations are thread-safe.\n\nThis implementation should now be safe for use in a multi-threaded environment."
+    },
+    {
+      "id": "refactoring_php8_clean",
+      "category": "Refactoring",
+      "title": "Legacy Order Processor to Modern PHP 8 Service",
+      "language": "PHP",
+      "eval_criteria": "Must use declare(strict_types=1), readonly properties/DTO, match expression, and clean dependency injection.",
+      "metrics": {
+        "total_duration_sec": 39.799,
+        "eval_count": 680,
+        "tokens_per_sec": 17.55,
+        "prompt_tokens": 419
+      },
+      "output_preview": "To refactor the legacy PHP function into a modern PHP 8.2+ class adhering to PSR-12, strict types, constructor property promotion, and match expressions, we can create a class `OrderProcessor` with a method `processOrder`. We will also define a data transfer object (DTO) `OrderResult`.\n\nHere's the c...",
+      "full_response": "To refactor the legacy PHP function into a modern PHP 8.2+ class adhering to PSR-12, strict types, constructor property promotion, and match expressions, we can create a class `OrderProcessor` with a method `processOrder`. We will also define a data transfer object (DTO) `OrderResult`.\n\nHere's the complete implementation:\n\n```php\n<?php\n\nnamespace App\\Services;\n\nuse App\\DTO\\OrderResult;\nuse App\\Enums\\PaymentGateway;\nuse App\\Enums\\PaymentType;\n\n/**\n * Class OrderProcessor\n * @package App\\Services\n */\nclass OrderProcessor\n{\n    /**\n     * Process an order based on the provided data and payment gateway.\n     *\n     * @param array $data\n     * @param PaymentGateway $gateway\n     * @return OrderResult\n     */\n    public function processOrder(array $data, PaymentGateway $gateway): OrderResult\n    {\n        if (empty($data['id'])) {\n            return new OrderResult(\n                orderId: null,\n                total: null,\n                status: 'error',\n                message: 'Order ID is missing'\n            );\n        }\n\n        $status = 'pending';\n        $fee = match ($data['type']) {\n            PaymentType::CARD => 2.5,\n            PaymentType::CRYPTO => 1.0,\n            default => 0.0,\n        };\n\n        $total = $data['amount'] + $fee;\n\n        return new OrderResult(\n            orderId: $data['id'],\n            total: $total,\n            status: 'processed'\n        );\n    }\n}\n\n/**\n * DTO for Order Result\n *\n * @package App\\DTO\n */\nclass OrderResult\n{\n    public function __construct(\n        public ?string $orderId,\n        public ?float $total,\n        public string $status,\n        public ?string $message = null\n    ) {\n    }\n}\n\n/**\n * Enum for Payment Gateway\n *\n * @package App\\Enums\n */\nenum PaymentGateway: string\n{\n    case PAYPAL = 'paypal';\n    case STRIPE = 'stripe';\n    // Add other gateways as needed\n}\n\n/**\n * Enum for Payment Type\n *\n * @package App\\Enums\n */\nenum PaymentType: string\n{\n    case CARD = 'card';\n    case CRYPTO = 'crypto';\n    // Add other types as needed\n}\n```\n\n### Explanation:\n\n1. **Namespace and Imports**: We define the namespace `App\\Services` and import necessary classes and enums.\n2. **Class Definition**: The `OrderProcessor` class is defined with a method `processOrder`.\n3. **Strict Types**: The method signature specifies strict types for parameters and return type.\n4. **Constructor Property Promotion**: The constructor properties are promoted using the `public function __construct(...)` syntax.\n5. **Match Expression**: The `match` expression is used to determine the fee based on the payment type.\n6. **OrderResult DTO**: A data transfer object `OrderResult` is defined to encapsulate the result of the order processing.\n7. **Enums**: Enums `PaymentGateway` and `PaymentType` are defined to represent the payment gateway and type, respectively.\n\nThis refactored code adheres to modern PHP standards, uses strict types, and follows best practices for OOP and DTOs."
+    },
+    {
+      "id": "multi_file_consistency",
+      "category": "Multi-file consistency",
+      "title": "FastAPI Endpoint and TypeScript Client Synchrony",
+      "language": "Python / TypeScript",
+      "eval_criteria": "Exact matching of field names (camelCase/snake_case mapping handled), correct HTTP PATCH verb, and URL parity.",
+      "metrics": {
+        "total_duration_sec": 43.948,
+        "eval_count": 760,
+        "tokens_per_sec": 17.61,
+        "prompt_tokens": 356
+      },
+      "output_preview": "### Backend (`backend/routes/user.py`)\n\n```python\nfrom fastapi import APIRouter, Depends, HTTPException, status\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\nfrom sqlalchemy.orm import Session\nfrom ..database import get_db\nfrom ..models import User\nfrom ..schemas import Update...",
+      "full_response": "### Backend (`backend/routes/user.py`)\n\n```python\nfrom fastapi import APIRouter, Depends, HTTPException, status\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\nfrom sqlalchemy.orm import Session\nfrom ..database import get_db\nfrom ..models import User\nfrom ..schemas import UpdateUserProfileRequest\n\nrouter = APIRouter()\n\nclass UpdateUserProfileRequest(BaseModel):\n    displayName: str\n    bio: Optional[str]\n    marketingOptIn: bool\n\n@router.patch(\"/api/v1/users/me\", status_code=status.HTTP_200_OK, response_model=User)\nasync def update_user_profile(\n    payload: UpdateUserProfileRequest,\n    db: Session = Depends(get_db),\n    current_user: User = Depends(get_current_active_user)\n):\n    if len(payload.displayName) < 3:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=\"Display name must be at least 3 characters long\")\n    \n    user = db.query(User).filter(User.id == current_user.id).first()\n    if not user:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"User not found\")\n    \n    user.displayName = payload.displayName\n    user.bio = payload.bio\n    user.marketingOptIn = payload.marketingOptIn\n    \n    db.commit()\n    db.refresh(user)\n    \n    return user\n\nasync def get_current_active_user(token: str = Depends(oauth2_scheme)):\n    credentials_exception = HTTPException(\n        status_code=status.HTTP_401_UNAUTHORIZED,\n        detail=\"Could not validate credentials\",\n        headers={\"WWW-Authenticate\": \"Bearer\"},\n    )\n    try:\n        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n        username: str = payload.get(\"sub\")\n        if username is None:\n            raise credentials_exception\n        token_data = TokenData(username=username)\n    except JWTError:\n        raise credentials_exception\n    user = get_user(db, username=token_data.username)\n    if user is None:\n        raise credentials_exception\n    return user\n```\n\n### Frontend (`frontend/src/api/userApi.ts`)\n\n```typescript\nimport { fetchWithToken } from './authApi';\n\ninterface UpdateUserProfileDTO {\n    displayName: string;\n    bio?: string;\n    marketingOptIn: boolean;\n}\n\nexport async function updateUserProfile(payload: UpdateUserProfileDTO): Promise<User> {\n    const response = await fetchWithToken('/api/v1/users/me', {\n        method: 'PATCH',\n        headers: {\n            'Content-Type': 'application/json',\n        },\n        body: JSON.stringify(payload),\n    });\n\n    if (!response.ok) {\n        throw new Error(`Failed to update user profile: ${response.statusText}`);\n    }\n\n    return response.json() as Promise<User>;\n}\n```\n\n### Explanation\n\n1. **Backend (`backend/routes/user.py`)**:\n   - A FastAPI endpoint `PATCH /api/v1/users/me` is defined to update a user's profile.\n   - The `UpdateUserProfileRequest` Pydantic model ensures that the input data is validated correctly.\n   - The `update_user_profile` function updates the user's profile in the database and returns the updated user object.\n\n2. **Frontend (`frontend/src/api/userApi.ts`)**:\n   - A TypeScript function `updateUserProfile` is defined to make a PATCH request to the `/api/v1/users/me` endpoint.\n   - The function takes an `UpdateUserProfileDTO` payload and sends it as JSON in the request body.\n   - The response is expected to be a JSON object representing the updated user profile.\n\nBoth files ensure that the backend and frontend are consistent in terms of the API endpoint, HTTP method, and data types."
+    },
+    {
+      "id": "tool_calling_sql",
+      "category": "Tool calling",
+      "title": "Structured Database Query Tool Invocation",
+      "language": "JSON / Tool Calling",
+      "eval_criteria": "Valid JSON tool call invoking execute_sql_query with appropriate SQL query (GROUP BY customer_id, SUM, WHERE year=2026, ORDER BY DESC LIMIT 5) and readonly=true.",
+      "metrics": {
+        "total_duration_sec": 5.566,
+        "eval_count": 82,
+        "tokens_per_sec": 16.48,
+        "prompt_tokens": 328
+      },
+      "output_preview": "```json\n{\n  \"name\": \"execute_sql_query\",\n  \"parameters\": {\n    \"query\": \"SELECT customer_id, SUM(order_total) as total_spend FROM orders WHERE YEAR(order_date) = 2026 GROUP BY customer_id ORDER BY total_spend DESC LIMIT 5;\",\n    \"readonly\": true,\n    \"timeout_sec\": 30\n  }\n}\n```",
+      "full_response": "```json\n{\n  \"name\": \"execute_sql_query\",\n  \"parameters\": {\n    \"query\": \"SELECT customer_id, SUM(order_total) as total_spend FROM orders WHERE YEAR(order_date) = 2026 GROUP BY customer_id ORDER BY total_spend DESC LIMIT 5;\",\n    \"readonly\": true,\n    \"timeout_sec\": 30\n  }\n}\n```"
+    },
+    {
+      "id": "latency_speed_test",
+      "category": "Latency",
+      "title": "Standard Algorithmic Throughput Benchmark",
+      "language": "Python",
+      "eval_criteria": "Evaluated primarily for response latency (TTFT), total completion time, and token generation speed (tokens/sec).",
+      "metrics": {
+        "total_duration_sec": 36.021,
+        "eval_count": 610,
+        "tokens_per_sec": 17.12,
+        "prompt_tokens": 273
+      },
+      "output_preview": "Certainly! Below is a Python implementation of the Knapsack 0/1 problem using dynamic programming with space optimization to \\(O(W)\\), where \\(W\\) is the capacity of the knapsack.\n\n```python\ndef knapsack_01(weights, values, capacity):\n    \"\"\"\n    Solves the 0/1 Knapsack problem using dynamic program...",
+      "full_response": "Certainly! Below is a Python implementation of the Knapsack 0/1 problem using dynamic programming with space optimization to \\(O(W)\\), where \\(W\\) is the capacity of the knapsack.\n\n```python\ndef knapsack_01(weights, values, capacity):\n    \"\"\"\n    Solves the 0/1 Knapsack problem using dynamic programming with space optimization.\n\n    Parameters:\n    weights (list): List of weights of items.\n    values (list): List of values of items.\n    capacity (int): Maximum capacity of the knapsack.\n\n    Returns:\n    int: Maximum value that can be put in a knapsack of capacity W.\n    \"\"\"\n    n = len(weights)\n    if n == 0 or capacity == 0:\n        return 0\n\n    # Initialize a 1D array to store the maximum value at each weight capacity\n    dp = [0] * (capacity + 1)\n\n    # Fill the dp array\n    for i in range(n):\n        for w in range(capacity, weights[i] - 1, -1):\n            dp[w] = max(dp[w], dp[w - weights[i]] + values[i])\n\n    return dp[capacity]\n\n# Example usage:\nweights = [2, 3, 4, 5]\nvalues = [3, 4, 5, 6]\ncapacity = 5\nprint(knapsack_01(weights, values, capacity))  # Output: 7\n```\n\n### Explanation:\n\n1. **Initialization**:\n   - We initialize a 1D array `dp` of size \\(W + 1\\) with all elements set to 0. This array will store the maximum value that can be achieved for each weight capacity from 0 to \\(W\\).\n\n2. **Dynamic Programming Transition**:\n   - We iterate over each item \\(i\\) (from 0 to \\(n-1\\)).\n   - For each item, we iterate over the possible capacities \\(w\\) (from \\(W\\) down to \\(weights[i]\\)). This reverse iteration ensures that each item is only considered once per capacity.\n   - For each capacity \\(w\\), we update `dp[w]` to be the maximum of its current value and the value obtained by including the current item (`dp[w - weights[i]] + values[i]`).\n\n3. **Result**:\n   - After filling the `dp` array, `dp[capacity]` will contain the maximum value that can be achieved with the given capacity.\n\n### Complexity Analysis:\n\n- **Time Complexity**: \\(O(n \\times W)\\), where \\(n\\) is the number of items and \\(W\\) is the capacity of the knapsack.\n- **Space Complexity**: \\(O(W)\\), as we only use a single 1D array to store the maximum values for each capacity.\n\nThis implementation efficiently solves the Knapsack 0/1 problem with optimal space usage."
+    }
+  ],
+  "summary": {
+    "average_tokens_per_sec": 17.03,
+    "total_generated_tokens": 3175,
+    "total_duration_sec": 194.26,
+    "tests_completed": 6
+  }
+}

@@ -20,3 +20,4 @@ SopuCoder maintains three distinct distribution channels:
 1. **GitHub:** Source code, Modelfiles, benchmark suites, and documentation.
 2. **Hugging Face Hub:** Verified weights, GGUF quants, dataset cards, and LoRA adapters.
 3. **Ollama Registry:** Ready-to-use versioned model packages for local developers.
+

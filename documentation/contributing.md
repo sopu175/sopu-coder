@@ -26,3 +26,4 @@ Thank you for your interest in contributing to SopuCoder! We welcome contributio
 2. Make clean, atomic commits adhering to conventional commit guidelines (`feat:`, `fix:`, `docs:`, `chore:`).
 3. Test any prompt or benchmark changes locally.
 4. Open a Pull Request with a clear description of changes and motivation.
+
