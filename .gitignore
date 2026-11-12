@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Environment
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Model weights and large files
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Training outputs
+training/outputs/
+training/checkpoints/
