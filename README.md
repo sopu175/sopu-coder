@@ -22,6 +22,7 @@
 [Benchmarks](#-18-domain-baseline-benchmarks) •
 [Fine-Tuning on Apple Silicon](#-fine-tuning-on-apple-silicon-mlx) •
 [IDE Integration](#-ide--editor-integrations) •
+[Device Profiler & Compatibility](#-hardware-profiler--cross-device-compatibility) •
 [Repository Structure](#-repository-structure)
 
 </div>
@@ -187,6 +188,30 @@ Add SopuCoder to `~/.continue/config.json`:
 
 ### Figma MCP Design-to-Code Workflow
 SopuCoder is architected for official Figma MCP (`https://mcp.figma.com/mcp`). Read the complete setup in [documentation/AGENT_LIMITATION_AUDIT.md](documentation/AGENT_LIMITATION_AUDIT.md).
+
+---
+
+## 📱 Hardware Profiler & Cross-Device Compatibility
+
+SopuCoder is designed to run anywhere — from low-end 2GB/4GB edge devices and Raspberry Pi, to 8GB/16GB everyday laptops, up to high-memory workstations and in-browser WebGPU environments.
+
+For in-depth architectural research and scaling plans, see [RESEARCH_CAPACITY_AND_DEVICE_EXPANSION.md](documentation/RESEARCH_CAPACITY_AND_DEVICE_EXPANSION.md).
+
+### Automatic Hardware Profiling
+Run the built-in zero-dependency hardware profiler on your machine to automatically discover the best SopuCoder tier for your hardware:
+
+```bash
+python3 scripts/device_profiler.py
+```
+
+### Multi-Tier Device Support Matrix
+
+| Tier | Model Variant | Disk Size (Q4_K_M) | Minimum RAM | Target Devices | Ideal Use Case |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tier 1 (Edge / Nano)** | `sopu-coder-nano` (0.5B / 1.5B) | **400 MB - 1.1 GB** | **2 GB - 4 GB** | Android (Termux), Raspberry Pi 4/5, Old Core-i3 PCs, WebGPU | Offline inline autocomplete, basic script fixing |
+| **Tier 2 (Fast)** | `sopu-coder-fast` (4B) | **2.2 GB - 3.3 GB** | **4 GB - 8 GB** | 8GB M1/M2/M3 Mac, Budget Windows/Linux laptops | Rapid code reviews, fast tab completion |
+| **Tier 3 (Flagship)** | `sopu-coder` (7B) | **4.7 GB** | **12 GB - 16 GB** | 16GB Apple Silicon, RTX 3060/4060, Dev Desktops | Full-stack software architecture, agent loop |
+| **Tier 4 (Pro / Max)** | `sopu-coder-pro` (14B / 32B) | **9.0 GB - 19.5 GB** | **24 GB - 64 GB** | M-series Max/Ultra, RTX 3090/4090, Cloud V100/A100 | Enterprise repos, deep algorithmic synthesis |
 
 ---
 
