@@ -22,3 +22,4 @@ Project maintainers are responsible for clarifying and enforcing our standards o
 
 ## Reporting Guidelines
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project maintainers via the community repository or email at `sopu175@gmail.com`. All complaints will be reviewed promptly and handled confidentially.
+
