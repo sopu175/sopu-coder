@@ -2,124 +2,191 @@
 
 # 🚀 SopuCoder
 
-**Next-Generation Open-Source AI Coding Assistant for Modern Developers**
+**Next-Generation Open-Source AI Coding Assistant Ecosystem**
 
+*Created & Maintained by **Md. Saiful Islam (Saif)***  
+*Built upon Alibaba Cloud's **Qwen** Foundation Models*
+
+[![GitHub Release](https://img.shields.io/github/v/release/sopu175/sopu-coder?color=blue&logo=github)](https://github.com/sopu175/sopu-coder/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Ollama](https://img.shields.io/badge/Ollama-Ready-black?logo=ollama)](https://ollama.com)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-yellow)](https://huggingface.co)
+[![Ollama Registry](https://img.shields.io/badge/Ollama%20Registry-sopu175-black?logo=ollama)](https://ollama.com/sopu175/sopu-coder)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-saif24565-yellow)](https://huggingface.co/saif24565)
+[![Apple Silicon Metal](https://img.shields.io/badge/Apple%20Silicon-MLX%20Metal%20Native-orange?logo=apple)](https://github.com/ml-explore/mlx)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](documentation/contributing.md)
 
-[Vision](#-vision) •
-[Key Goals](#-key-goals) •
-[Available Models](#-available-models) •
-[Ollama Setup](#-quick-start-with-ollama) •
-[Hugging Face](#-hugging-face-distribution) •
-[Repository Structure](#-repository-structure) •
-[Contributing](#-community--contribution)
+[Overview](#-overview) •
+[Creator & Attribution](#-creator--foundation-attribution) •
+[Model Family](#-model-family) •
+[Quickstart](#-quickstart-with-ollama) •
+[Tool Calling](#-native-tool-calling--agent-runtime) •
+[Benchmarks](#-18-domain-baseline-benchmarks) •
+[Fine-Tuning on Apple Silicon](#-fine-tuning-on-apple-silicon-mlx) •
+[IDE Integration](#-ide--editor-integrations) •
+[Repository Structure](#-repository-structure)
 
 </div>
 
 ---
 
-## 🌟 Vision
+## 🌟 Overview
 
-**SopuCoder** is built to bridge the gap between heavy cloud-dependent coding assistants and privacy-focused local development. Our vision is to provide developers, teams, and open-source contributors with **accessible, high-performance, and privacy-first coding models** optimized to run seamlessly on consumer hardware and local developer workstations.
+**SopuCoder** is an open-source, privacy-first AI coding model ecosystem designed to bridge the gap between cloud-dependent proprietary coding assistants and local-first software engineering. 
 
-Whether you are writing full-stack web applications, refactoring complex codebases, or seeking ultra-fast inline code completions, SopuCoder delivers state-of-the-art coding capabilities directly on your local machine.
-
----
-
-## 🎯 Key Goals
-
-- 💻 **Local-First & Private:** Run locally without sending proprietary code or sensitive intellectual property to external cloud APIs.
-- ⚡ **Ultra-Low Latency:** Engineered for both fast inline code completion (instant feedback) and deep reasoning / architectural refactoring.
-- 🌐 **Modern Full-Stack Specialization:** Native fluency in contemporary tech stacks including **TypeScript, React, Python, JavaScript, and PHP**.
-- 🛠️ **Open Source & Extensible:** Open weights, fully documented dataset preparation pipelines, and reproducible fine-tuning recipes.
-- 🔌 **Seamless Tooling Integration:** Native compatibility with Ollama, llama.cpp, vLLM, Hugging Face Transformers, and popular IDE extensions (VS Code, Cursor, Neovim).
+Running locally on developer workstations (Apple Silicon, Linux, and Windows) with zero data leakage, SopuCoder delivers state-of-the-art coding assistance across **18 specialized software engineering domains**—including modern TypeScript/React 19, Next.js App Router, Python FastAPI/SQLAlchemy 2.0, PHP 8.3/Laravel 11, Three.js, GSAP motion choreography, multi-tenant PostgreSQL RLS, and native tool execution.
 
 ---
 
-## 🧠 Available Models
+## 👤 Creator & Foundation Attribution
 
-SopuCoder offers tailored variants designed for distinct workflows and hardware constraints:
-
-| Model | Target Use Case | Recommended Hardware | Context Window | Formats |
-| :--- | :--- | :--- | :--- | :--- |
-| **`sopu-coder`** | Architectural design, multi-file reasoning, deep refactoring, code explanation | 16GB+ RAM / Apple Silicon (M1/M2/M3) / 8GB+ VRAM | 16k - 32k tokens | GGUF (Q4/Q8), Safetensors |
-| **`sopu-coder-fast`** | Instant inline tab-completion, syntax checks, quick function generation | 8GB RAM / Low-spec laptops / Edge devices | 8k - 16k tokens | GGUF (Q4/Q5), Safetensors |
+- **Project Creator & Maintainer:** **Md. Saiful Islam (Saif)**
+- **Foundation Architectures:** Built upon Alibaba Cloud's world-class **Qwen** foundation series:
+  - **SopuCoder (Flagship 7B):** Built on `Qwen2.5-Coder 7B`
+  - **SopuCoder Fast (Lightweight):** Built on `Qwen3.5 4B` & fine-tuned `Qwen2.5-Coder 1.5B`
+- **Attribution Policy:** SopuCoder transparently acknowledges Alibaba Cloud / Qwen Team as the foundation creators and maintains full Apache 2.0 open-source licensing compliance.
 
 ---
 
-## 🦙 Quick Start with Ollama
+## 🧠 Model Family
 
-SopuCoder is fully integrated with [Ollama](https://ollama.com) for effortless local deployment.
+| Model | Base Architecture | Role & Target Workflows | Context Window | Throughput (Apple M1) | RAM Footprint | Distribution Channels |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`sopu-coder`** | `Qwen2.5-Coder 7B` | Primary software architect, complex refactoring, multi-file code review, security defense | 32,768 tokens | ~17.03 tokens/sec | ~4.7 GB RAM | Ollama (`sopu175/sopu-coder`), GitHub, Hugging Face |
+| **`sopu-coder-fast`** | `Qwen3.5 4B` | Real-time inline tab-completions, syntax checks, instant single-function generation | 16,384 tokens | ~22.38 tokens/sec | ~3.3 GB RAM | Ollama (`sopu175/sopu-coder-fast`), GitHub, Hugging Face |
+| **`sopu-coder-fast-fused`** | `Qwen2.5-Coder 1.5B` (MLX LoRA) | Ultra-high velocity edge execution, zero reasoning delay, lightweight laptops | 8,192 tokens | **68.71 tokens/sec** | **1.09 GB RAM** | Hugging Face (`saif24565/sopu-coder-fast-mlx-adapters`), MLX Standalone |
 
-### 1. Run via Ollama Registry (Official Public Models)
+---
 
+## 🦙 Quickstart with Ollama
+
+SopuCoder is published directly to the [Ollama Registry](https://ollama.com/sopu175).
+
+### 1. Run Flagship SopuCoder (7B)
 ```bash
-# Run standard SopuCoder for full-stack programming & deep architecture
-ollama run sopu175/sopu-coder
+# Pull and run SopuCoder v1.1.0 (Full-stack architecture)
+ollama run sopu175/sopu-coder:v1.1.0
 
-# Run lightweight SopuCoder Fast for ultra-fast completions & tab assist
-ollama run sopu175/sopu-coder-fast
+# Or track latest
+ollama run sopu175/sopu-coder:latest
 ```
 
-### 2. Build Locally with Modelfile
+### 2. Run SopuCoder Fast (Low-Latency)
+```bash
+# Pull and run SopuCoder Fast v1.1.0 (Real-time completion)
+ollama run sopu175/sopu-coder-fast:v1.1.0
 
-You can easily build custom quantizations or local builds from the source repository:
+# Or track latest
+ollama run sopu175/sopu-coder-fast:latest
+```
 
+### 3. Build Locally from Modelfiles
 ```bash
 # Clone the repository
-git clone https://github.com/saifdc-dev/SopuCoder.git
+git clone https://github.com/sopu175/sopu-coder.git
 cd SopuCoder
 
-# Build standard SopuCoder
-cd sopu-coder
-ollama create sopu-coder -f Modelfile
-ollama run sopu-coder
+# Build Flagship
+ollama create sopu-coder -f sopu-coder/Modelfile
 
-# Or build SopuCoder Fast
-cd ../sopu-coder-fast
-ollama create sopu-coder-fast -f Modelfile
-ollama run sopu-coder-fast
+# Build Fast
+ollama create sopu-coder-fast -f sopu-coder-fast/Modelfile
 ```
-
-### 3. Integrate with IDEs
-Configure your IDE extension (e.g., **Continue**, **Twinny**, or **CodeGPT**) to point to your local Ollama endpoint:
-- **Base URL:** `http://localhost:11434`
-- **Model:** `sopu-coder` (for Chat) or `sopu-coder-fast` (for Autocomplete)
 
 ---
 
-## 🤗 Hugging Face Distribution
+## 🛠️ Native Tool-Calling & Agent Runtime
 
-Pre-trained weights, quantized GGUF checkpoints, and dataset artifacts are distributed through Hugging Face.
+SopuCoder includes a native, keyless tool execution engine in `tools/` that eliminates raw JSON leaks and fake API keys:
 
-### Model Hub Repositories
-- **Standard Model (7B):** [https://huggingface.co/saif24565/sopu-coder](https://huggingface.co/saif24565/sopu-coder)
-- **Fast Model (4B):** [https://huggingface.co/saif24565/sopu-coder-fast](https://huggingface.co/saif24565/sopu-coder-fast)
+- **Keyless Live Weather:** Integrates with **Open-Meteo** (`api.open-meteo.com`) for worldwide real-time geocoding and weather without requiring any API keys.
+- **Safe Web Fetch:** Validates URLs, blocks SSRF/loopback attacks, and respects timeouts.
+- **Natural Language Synthesis:** Dispatches tool results back to SopuCoder for a clean, human-readable response.
 
-### Usage with Python (`transformers`)
+```bash
+# Ask a real-time question with live tool execution
+python -m tools.cli "What is the weather today in Dhaka?"
 
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+# Verbose mode (inspect executed tool calls)
+python -m tools.cli -v "What is the weather today in Tokyo?"
 
-model_id = "saif24565/sopu-coder"
-
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype=torch.bfloat16,
-    device_map="auto"
-)
-
-prompt = "Write a React hook for debouncing an input field value with TypeScript types."
-inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.2)
-
-print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+# Interactive agent session
+python -m tools.cli --interactive
 ```
+
+---
+
+## 📊 18-Domain Baseline Benchmarks
+
+SopuCoder v1.1.0 has been evaluated across 18 software engineering domains in [benchmarks/baseline_suite.json](benchmarks/baseline_suite.json).
+
+| Category | Benchmark Test Title | SopuCoder 7B Speed | Fine-Tuned 1.5B Speed | Maturity Level |
+| :--- | :--- | :--- | :--- | :--- |
+| **JavaScript & TypeScript** | Nominal Type-Safe Generic Event Bus | 16.75 t/s | **68.71 t/s** | Level 5 (Production) |
+| **React** | Compound Modal with ARIA & Context | 17.67 t/s | **64.20 t/s** | Level 5 (Production) |
+| **Next.js App Router** | Server Action with Zod & Revalidation | 16.34 t/s | **60.55 t/s** | Level 5 (Production) |
+| **Node.js** | Backpressure-Managed NDJSON Stream | 17.10 t/s | 65.00 t/s | Level 5 (Production) |
+| **PHP & Laravel 11** | Idempotent Queued Job with Enums | 16.90 t/s | 61.20 t/s | Level 5 (Production) |
+| **Yii2 & WordPress** | REST API Nonces & `$wpdb->prepare` | 17.20 t/s | 59.80 t/s | Level 4 (Advanced) |
+| **Python Backend** | SQLAlchemy 2.0 Async Generic Repository | 17.00 t/s | 62.40 t/s | Level 5 (Production) |
+| **Three.js** | Procedural ShaderMaterial Swarm | 16.80 t/s | 58.10 t/s | Level 4 (Advanced) |
+| **React Three Fiber** | Interactive Mesh Viewer with Drei | 17.10 t/s | 60.10 t/s | Level 4 (Advanced) |
+| **GSAP Motion** | ScrollTrigger Pinning with `@gsap/react` | 16.90 t/s | 59.50 t/s | Level 4 (Advanced) |
+| **SaaS Architecture** | PostgreSQL Row-Level Security (RLS) | 17.40 t/s | 63.00 t/s | Level 5 (Production) |
+| **Database Migrations** | Zero-Downtime Column Rename Plan | 17.50 t/s | 61.80 t/s | Level 5 (Production) |
+| **Technical SEO** | Dynamic JSON-LD Structured Data & OG | 16.80 t/s | 64.00 t/s | Level 5 (Production) |
+| **Testing** | Vitest Hook Suite with Fake Timers | 17.20 t/s | 66.50 t/s | Level 5 (Production) |
+| **Debugging** | Concurrency Lock Race Condition Fix | 17.00 t/s | 67.00 t/s | Level 5 (Production) |
+| **Refactoring** | Imperative to Modern PSR-12 OOP | 16.80 t/s | 63.50 t/s | Level 5 (Production) |
+| **Multi-File Sync** | FastAPI Schema + TypeScript Client Parity | 17.10 t/s | 61.00 t/s | Level 5 (Production) |
+| **Tool Calling** | Structured Open-Meteo Tool Invocation | 17.30 t/s | **Native Engine** | Level 5 (Production) |
+
+👉 *Full analysis available in [documentation/BASELINE_BENCHMARKS.md](documentation/BASELINE_BENCHMARKS.md) and [documentation/CAPABILITY_MATRIX.md](documentation/CAPABILITY_MATRIX.md).*
+
+---
+
+## ⚡ Fine-Tuning on Apple Silicon (MLX)
+
+SopuCoder features native, reproducible Low-Rank Adaptation (LoRA) fine-tuning pipelines optimized for Apple Silicon Metal Unified Memory:
+
+- **Run ID:** `EXP-004`
+- **Framework:** `mlx-lm` (Metal native)
+- **Training Throughput:** **385 - 402 tokens/second**
+- **Loss Reduction:** Training loss dropped from 0.878 to **0.118**; Validation loss dropped from 1.560 to **0.502**.
+- **Adapter Checkpoints:** Published on Hugging Face at [`saif24565/sopu-coder-fast-mlx-adapters`](https://huggingface.co/saif24565/sopu-coder-fast-mlx-adapters).
+
+```bash
+# Run inference with LoRA adapters via MLX
+pip install mlx-lm
+python -m mlx_lm generate \
+  --model mlx-community/Qwen2.5-Coder-1.5B-Instruct-4bit \
+  --adapter-path training/checkpoints/sopu-coder-mlx-adapters \
+  --prompt "<|im_start|>system\nYou are SopuCoder Fast.<|im_end|>\n<|im_start|>user\nWrite a React useOptimisticMutation hook.<|im_end|>\n<|im_start|>assistant\n"
+```
+
+---
+
+## 💻 IDE & Editor Integrations
+
+### VS Code & Cursor (via Continue)
+Add SopuCoder to `~/.continue/config.json`:
+```json
+{
+  "models": [
+    {
+      "title": "SopuCoder (Flagship 7B)",
+      "provider": "ollama",
+      "model": "sopu175/sopu-coder:v1.1.0"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "SopuCoder Fast (Autocomplete)",
+    "provider": "ollama",
+    "model": "sopu175/sopu-coder-fast:v1.1.0"
+  }
+}
+```
+
+### Figma MCP Design-to-Code Workflow
+SopuCoder is architected for official Figma MCP (`https://mcp.figma.com/mcp`). Read the complete setup in [documentation/AGENT_LIMITATION_AUDIT.md](documentation/AGENT_LIMITATION_AUDIT.md).
 
 ---
 
@@ -127,65 +194,57 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ```text
 SopuCoder/
-├── README.md                   # Project overview and quick start guide
-├── documentation/             # Project governance, roadmap, and guides
-│   ├── model-roadmap.md        # Architecture roadmap and release milestones
-│   ├── contributing.md         # Community contribution guidelines
-│   └── governance.md           # Project governance and RFC process
-├── sopu-coder/                 # Standard model configuration and Modelfile
-│   ├── Modelfile               # Ollama configuration
-│   ├── README.md               # Model-specific documentation
-│   └── benchmarks/             # Benchmark evaluations
-├── sopu-coder-fast/            # Fast model configuration and Modelfile
-│   ├── Modelfile               # Ollama configuration for fast variant
-│   ├── README.md               # Fast model documentation
-│   └── benchmarks/             # Latency and throughput benchmarks
-├── datasets/                   # Training and evaluation datasets
-│   ├── python/                 # Python dataset curation
-│   ├── typescript/             # TypeScript dataset curation
-│   ├── javascript/             # JavaScript dataset curation
-│   ├── react/                  # React component & hook datasets
-│   └── php/                    # Modern PHP (Laravel, Symfony, Core) datasets
-└── training/                   # Model training and fine-tuning pipelines
-    ├── fine-tuning/            # Unsloth, LoRA, and QLoRA recipes
-    ├── scripts/                # Data preprocessing, filtering, and tokenization
-    └── evaluation/             # Automated evaluation suites (HumanEval, etc.)
+├── README.md                           # Main documentation & quickstart
+├── LICENSE                             # Apache 2.0 Open-Source License
+├── CHANGELOG.md                        # Version release changelog
+├── release-manifest.json               # Pre-publish verified file manifest
+├── release-audit-report.json           # Pre-publish security scan report
+├── sopu-coder/                         # SopuCoder Flagship 7B Modelfile & docs
+│   ├── Modelfile                       # Ollama configuration
+│   └── README.md                       # Model specifications
+├── sopu-coder-fast/                    # SopuCoder Fast Modelfile & docs
+│   ├── Modelfile                       # Ollama configuration
+│   └── README.md                       # Model specifications
+├── tools/                              # Native Tool Calling & Agent Runtime
+│   ├── agent_runtime.py                # Multi-turn Ollama dispatch loop
+│   ├── registry.py                     # Tool registry with Open-Meteo & Web Fetch
+│   └── cli.py                          # Command-line interface with tool execution
+├── benchmarks/                         # 18-Domain Baseline Benchmark Suite
+│   ├── baseline_suite.json             # 18-domain prompt & evaluation criteria
+│   └── run_benchmarks.py               # Automated benchmark execution engine
+├── datasets/                           # Curated training & evaluation datasets
+│   ├── v1.1/                           # Versioned datasets (Train: 26, Val: 5, Test: 5)
+│   ├── DATASET_SOURCE_REGISTRY.md      # Approved & rejected dataset sources
+│   └── DATASET_SELECTION_REPORT.md     # Ingestion strategy for v1.2.0
+├── training/                           # Continuous fine-tuning pipelines
+│   ├── checkpoints/                    # MLX LoRA adapters & fused weights
+│   ├── evaluation/                     # Detailed evaluation reports
+│   └── EXPERIMENT_LOG.md               # Empirical training loss logs
+├── documentation/                      # Architectural audits and guides
+│   ├── BASELINE_BENCHMARKS.md          # 18-domain evaluation analysis
+│   ├── CAPABILITY_MATRIX.md            # Maturity matrix across 18 domains
+│   ├── AGENT_LIMITATION_AUDIT.md       # Figma MCP & IDE integration audit
+│   └── MODEL_IMPROVEMENT_ROADMAP.md    # Multi-version roadmap (v1.0 -> v2.0)
+└── scripts/
+    └── pre_publish_audit.py            # Mandatory pre-push credential & license scanner
 ```
 
 ---
 
-## 📊 Datasets & Training Philosophy
+## 🤝 Community & Governance
 
-SopuCoder adheres to strict data curation standards:
-- **High-Quality Code Extraction:** Strict filtering for modern idioms, clean syntax, comprehensive type annotations, and unit tests.
-- **Deduplication & Sanitization:** Removal of benchmark test leaks, license-violating code, sensitive credentials, and boilerplate.
-- **Targeted Domain Coverage:**
-  - **Python:** Modern asynchronous patterns, FastAPI, data pipelines, standard library mastery.
-  - **TypeScript & React:** Modern React 18/19 patterns (Hooks, Context, Server Components), robust typing, state management.
-  - **PHP:** Modern PHP 8.x features, Laravel, type declarations, clean MVC architecture.
-  - **JavaScript:** ESNext standards, Node.js runtimes, clean modular architecture.
-
----
-
-## 🤝 Community & Contribution
-
-We welcome contributions from developers, researchers, and AI enthusiasts worldwide! Here is how you can get involved:
-
-1. **Contribute Datasets:** Share clean, high-quality code snippets and instruction pairs under `datasets/`.
-2. **Improve Prompts & Modelfiles:** Test and refine system prompts and parameters under `sopu-coder/` and `sopu-coder-fast/`.
-3. **Enhance Training Recipes:** Optimize LoRA/QLoRA training configurations and evaluation benchmarks in `training/`.
-4. **Report Bugs & Suggest Features:** Open an issue or join our community discussions.
-
-Please review our [Contributing Guidelines](documentation/contributing.md) and [Model Roadmap](documentation/model-roadmap.md) before submitting a Pull Request.
+We welcome open-source contributions!
+- Review [CONTRIBUTING.md](CONTRIBUTING.md) for code and dataset contribution guidelines.
+- Review [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community standards.
+- Check [MODEL_IMPROVEMENT_ROADMAP.md](documentation/MODEL_IMPROVEMENT_ROADMAP.md) for planned features.
 
 ---
 
 ## 📄 License
 
-SopuCoder is open-source software licensed under the [Apache License 2.0](LICENSE).
-
----
+SopuCoder is open-source software licensed under the **[Apache License 2.0](LICENSE)**.  
+Base foundation models are developed by the **Alibaba Cloud / Qwen Team** under the Apache License 2.0.
 
 <div align="center">
-  <sub>Built with ❤️ by the SopuCoder Community. Empowering developers everywhere with local AI.</sub>
+  <sub>Built with ❤️ by <b>Md. Saiful Islam (Saif)</b> and the SopuCoder Open-Source Contributors.</sub>
 </div>

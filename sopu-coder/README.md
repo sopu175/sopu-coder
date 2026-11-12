@@ -1,34 +1,76 @@
-# 🧠 SopuCoder (Standard Model)
+# 🧠 SopuCoder (Flagship 7B Model)
 
-The flagship model of the SopuCoder suite, tailored for software engineers needing deep reasoning, complex architectural design, and full-stack development capability.
+**Model:** `sopu-coder`  
+**Creator & Maintainer:** Md. Saiful Islam (Saif)  
+**Base Architecture:** Alibaba Cloud Qwen2.5-Coder 7B  
+**License:** Apache 2.0  
+**Ollama Registry:** [`sopu175/sopu-coder`](https://ollama.com/sopu175/sopu-coder)  
+**Hugging Face:** [`saif24565/sopu-coder`](https://huggingface.co/saif24565/sopu-coder)  
 
-## Specifications
-- **Base Model:** `qwen2.5-coder:7b` (Custom fine-tuned weights available)
-- **Context Length:** 32,768 tokens
-- **Target Hardware:** 16GB RAM / 8GB VRAM / Apple Silicon (M-series)
-- **Key Stacks:** Python, TypeScript, React, JavaScript, Modern PHP 8.x
+---
 
-## Build & Run Locally with Ollama
+## 🚀 Overview
+
+**SopuCoder** is the primary coding and software engineering engine of the SopuCoder suite. It is tailored for developers and engineering teams requiring deep architectural reasoning, multi-file refactoring, defensive security checks, and modern full-stack implementation across TypeScript, React 19, Next.js, Python FastAPI, PHP 8.3 Laravel, and database migrations.
+
+---
+
+## ⚙️ Specifications
+
+| Parameter | Value |
+| :--- | :--- |
+| **Base Model** | `qwen2.5-coder:7b` |
+| **Context Window** | 32,768 tokens |
+| **Quantization** | Q4_K_M (Ollama default) / 16-bit Safetensors |
+| **Memory Footprint** | ~4.7 GB RAM |
+| **Generation Speed** | ~17.03 tokens/second on Apple Silicon M1 |
+| **Temperature** | 0.2 (deterministic, low hallucination) |
+| **Top P / Top K** | 0.95 / 40 |
+| **Repeat Penalty** | 1.05 |
+
+---
+
+## 🦙 Quickstart
 
 ```bash
-# Build the model using the local Modelfile
+# Pull and run directly from Ollama Registry
+ollama run sopu175/sopu-coder:v1.1.0
+
+# Or track latest
+ollama run sopu175/sopu-coder:latest
+```
+
+## 🛠️ Build Locally
+
+```bash
+# Navigate to this directory and build with Modelfile
 ollama create sopu-coder -f Modelfile
 
 # Run interactive session
 ollama run sopu-coder
 ```
 
-## Recommended VS Code / Cursor Settings (via Continue)
+---
+
+## 💻 Recommended IDE Configuration (Continue for VS Code / Cursor)
+
+Add to `~/.continue/config.json`:
 
 ```json
 {
   "models": [
     {
-      "title": "SopuCoder",
+      "title": "SopuCoder (Flagship 7B)",
       "provider": "ollama",
-      "model": "sopu-coder"
+      "model": "sopu175/sopu-coder:v1.1.0"
     }
   ]
 }
 ```
 
+---
+
+## 📄 License & Attribution
+- **Creator Attribution:** Created and maintained by Md. Saiful Islam (Saif).
+- **Foundation Model:** Alibaba Cloud / Qwen Team (Apache 2.0).
+- **SopuCoder Engine:** Apache 2.0.
