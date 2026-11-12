@@ -3,7 +3,7 @@
 An ultra-low-latency coding model optimized for inline tab completions, fast function writing, bug fixing, and execution on resource-constrained hardware.
 
 ## Specifications
-- **Base Model:** `qwen2.5-coder:1.5b`
+- **Base Model:** `qwen3.5:4b`
 - **Context Length:** 16,384 tokens
 - **Target Hardware:** 8GB RAM / Entry-level Laptops / Edge Devices
 - **Key Specialization:** Instant inline completions, boilerplate generation, syntax error fixes

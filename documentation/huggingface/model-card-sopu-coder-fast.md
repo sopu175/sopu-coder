@@ -58,3 +58,4 @@ Using the [Continue](https://continue.dev) extension:
 ## 📄 License & Attribution
 - SopuCoder Fast configuration & prompts: Apache License 2.0.
 - Base foundation model: Qwen 2.5 Coder 1.5B (Alibaba Cloud).
+

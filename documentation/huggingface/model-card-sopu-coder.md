@@ -86,3 +86,4 @@ print(tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_toke
 ## 📄 License & Attribution
 - SopuCoder configuration, prompts, and evaluation suite: Apache License 2.0.
 - Base foundation model: Qwen 2.5 Coder (Alibaba Cloud).
+

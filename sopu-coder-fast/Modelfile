@@ -1,13 +1,13 @@
 # ==============================================================================
 # SopuCoder Fast - Lightweight Coding Model Configuration
 # Model: sopu-coder-fast
-# Base: qwen2.5-coder:1.5b (or sopucoder/sopu-coder-fast GGUF)
+# Base: qwen3.5:4b
 # Description: Ultra-fast, lightweight coding model optimized for real-time
 #              inline code completions, quick function generation, lint fixes,
 #              and running smoothly on low-spec hardware or laptops.
 # ==============================================================================
 
-FROM qwen2.5-coder:1.5b
+FROM qwen3.5:4b
 
 # Inference Parameters
 PARAMETER temperature 0.1

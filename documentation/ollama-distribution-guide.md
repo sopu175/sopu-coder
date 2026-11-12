@@ -66,3 +66,4 @@ ollama run sopu175/sopu-coder
 # Low-Latency Tab Autocomplete Model
 ollama run sopu175/sopu-coder-fast
 ```
+
