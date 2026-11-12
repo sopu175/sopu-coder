@@ -1,0 +1,12 @@
+# SopuCoder License & Attribution
+
+## Codebase License
+The SopuCoder project source code, configuration files, scripts, and documentation are licensed under the **Apache License, Version 2.0**.
+See [Apache 2.0 Official Text](https://www.apache.org/licenses/LICENSE-2.0).
+
+Copyright (c) 2026 SopuCoder Contributors.
+
+## Upstream Model Attribution & Licenses
+SopuCoder candidate configurations derive from open-weights base architectures:
+- **Qwen 2.5 Coder Base Models:** Subject to the Tongyi Qianwen License Agreement and Apache 2.0 where applicable by Alibaba Cloud.
+- **Attribution Notice:** Any redistribution of fine-tuned weights or model checkpoints will clearly disclose the underlying base foundation model and abide by all upstream distribution terms and compute restrictions.

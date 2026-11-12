@@ -1,0 +1,7 @@
+# SopuCoder Fast Model License
+
+This configuration is part of the SopuCoder ecosystem.
+- SopuCoder Fast configuration & prompts: Apache License 2.0
+- Base Foundation Model: Qwen 2.5 Coder 1.5B (subject to upstream open license by Alibaba Cloud)
+
+See root [LICENSE](../LICENSE) for complete licensing and attribution details.
