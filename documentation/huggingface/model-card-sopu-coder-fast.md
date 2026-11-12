@@ -28,11 +28,29 @@ inference: false
 ## 🚀 Key Specifications
 
 - **Creator & Maintainer:** Md. Saiful Islam (Saif)
-- **Base Architecture:** Alibaba Qwen3.5 4B
+- **Base Architecture:** Alibaba Qwen3.5 4B & DeepSeek-R1 logic
 - **Context Length:** 16,384 tokens
 - **Inference Speed:** ~22.4 - 25+ tokens/second on Apple Silicon
 - **Fine-Tuned Standalone Candidate (1.5B):** **68.7 tokens/second** at **1.09 GB RAM**
-- **Target Stacks:** Real-time IDE inline completions, quick function generation, lint fixes, tool calling.
+- **Language Support:** Bilingual (English & Bengali / বাংলা)
+- **Target Stacks:** Autonomous coding agents (OpenCode, Claude Code, Hermes Agent, OpenClaw), real-time IDE inline completions, quick function generation, lint fixes.
+- **Native Tool Calling:** 100% native OpenAI-compatible structured tool calls via dedicated streaming parser.
+
+---
+
+## 🤖 Coding Agent & IDE Quickstart
+
+### Autonomous Coding Agents
+```bash
+# OpenCode
+ollama launch opencode --model sopu175/sopu-coder-fast
+
+# Claude Code
+ollama launch claude --model sopu175/sopu-coder-fast
+
+# Hermes Agent
+ollama launch hermes --model sopu175/sopu-coder-fast
+```
 
 ---
 

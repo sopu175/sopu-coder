@@ -32,9 +32,11 @@ inference: false
 
 - **Creator & Maintainer:** Md. Saiful Islam (Saif)
 - **Base Architecture:** Alibaba Cloud Qwen 2.5 Coder 7B
-- **Context Length:** 32,768 tokens
+- **Context Length:** 16,384 tokens
 - **Inference Speed:** ~17 tokens/second on Apple Silicon M1
+- **Language Support:** Bilingual (English & Bengali / বাংলা)
 - **Target Stacks:** TypeScript, React 19, Next.js App Router, Python (FastAPI/SQLAlchemy 2.0), PHP 8.3 (Laravel 11/Yii2), Three.js, GSAP, SaaS Multi-Tenancy (PostgreSQL RLS).
+- **Template Architecture:** Dual-Mode Template (Clean conversational natural-language chat in terminal, structured function calls in agent runtimes).
 - **Tool Calling Support:** Native Ollama tool execution with Open-Meteo (keyless real-time weather) and safe web fetch.
 
 ---

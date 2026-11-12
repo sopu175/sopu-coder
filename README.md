@@ -167,6 +167,41 @@ python -m mlx_lm generate \
 
 ## 💻 IDE & Editor Integrations
 
+### Coding Agent Platforms (OpenCode, Claude Code, Hermes Agent, OpenClaw)
+
+SopuCoder Fast features native support for automated coding agents and agentic CLI workflows:
+
+```bash
+# OpenCode (Autonomous terminal coding agent)
+ollama launch opencode --model sopu175/sopu-coder-fast
+
+# Claude Code
+ollama launch claude --model sopu175/sopu-coder-fast
+
+# Hermes Agent
+ollama launch hermes --model sopu175/sopu-coder-fast
+
+# OpenClaw
+ollama launch openclaw --model sopu175/sopu-coder-fast
+```
+
+For OpenCode configuration (`~/.config/opencode/opencode.json`):
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/sopu175/sopu-coder-fast:latest",
+  "small_model": "ollama/sopu175/sopu-coder-fast:latest",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    }
+  }
+}
+```
+
 ### VS Code & Cursor (via Continue)
 Add SopuCoder to `~/.continue/config.json`:
 ```json

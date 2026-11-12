@@ -20,13 +20,14 @@
 | Parameter | Value |
 | :--- | :--- |
 | **Base Model** | `qwen2.5-coder:7b` |
-| **Context Window** | 32,768 tokens |
+| **Context Window** | 16,384 tokens |
 | **Quantization** | Q4_K_M (Ollama default) / 16-bit Safetensors |
 | **Memory Footprint** | ~4.7 GB RAM |
 | **Generation Speed** | ~17.03 tokens/second on Apple Silicon M1 |
-| **Temperature** | 0.2 (deterministic, low hallucination) |
-| **Top P / Top K** | 0.95 / 40 |
-| **Repeat Penalty** | 1.05 |
+| **Temperature** | 0 (deterministic, low hallucination) |
+| **Top P / Repeat Penalty** | 0.90 / 1.10 |
+| **Language Support** | Bilingual (English & Bengali / বাংলা) |
+| **Architecture** | Dual-Mode Template (Clean conversational chat in terminal, structured tools when invoked) |
 
 ---
 
@@ -52,8 +53,9 @@ ollama run sopu-coder
 
 ---
 
-## 💻 Recommended IDE Configuration (Continue for VS Code / Cursor)
+## 🤖 Coding Agent & IDE Configurations
 
+### Continue (VS Code / Cursor)
 Add to `~/.continue/config.json`:
 
 ```json
@@ -62,10 +64,17 @@ Add to `~/.continue/config.json`:
     {
       "title": "SopuCoder (Flagship 7B)",
       "provider": "ollama",
-      "model": "sopu175/sopu-coder:v1.1.0"
+      "model": "sopu175/sopu-coder:latest"
     }
   ]
 }
+```
+
+### Coding Agents (OpenCode, Claude Code, Hermes Agent)
+For autonomous multi-file edits and terminal coding tasks, we recommend `sopu175/sopu-coder-fast`:
+```bash
+ollama launch opencode --model sopu175/sopu-coder-fast
+ollama launch claude --model sopu175/sopu-coder-fast
 ```
 
 ---

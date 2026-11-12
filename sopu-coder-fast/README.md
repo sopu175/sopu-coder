@@ -19,14 +19,16 @@
 
 | Parameter | Value |
 | :--- | :--- |
-| **Base Model** | `qwen3.5:4b` |
-| **Context Window** | 16,384 tokens |
+| **Base Architecture** | Qwen 3.5 4B & DeepSeek-R1 logic |
+| **Context Window** | 16,384 tokens (default 8,192 ctx) |
 | **Memory Footprint** | ~3.3 GB RAM |
 | **Generation Speed** | ~22.38 tokens/second on Apple Silicon M1 |
 | **Fine-Tuned Standalone (1.5B)** | **68.71 tokens/second** at **1.09 GB RAM** |
-| **Temperature** | 0.1 (high precision, low variance) |
-| **Top P / Top K** | 0.9 / 30 |
-| **Repeat Penalty** | 1.05 |
+| **Temperature** | 0 (deterministic, high precision) |
+| **Top P / Top K** | 0.85 / 25 |
+| **Repeat Penalty** | 1.15 |
+| **Language Support** | Bilingual (English & Bengali / বাংলা) |
+| **Native Tool Calling** | 100% native OpenAI-compatible structured tool calls via dedicated streaming parser |
 
 ---
 
@@ -52,7 +54,26 @@ ollama run sopu-coder-fast
 
 ---
 
-## 💻 IDE Tab Autocomplete Configuration (Continue for VS Code / Cursor)
+## 🤖 Coding Agent & IDE Configurations
+
+### Autonomous Terminal Agents (OpenCode, Claude Code, Hermes Agent, OpenClaw)
+`sopu175/sopu-coder-fast` has native streaming tool support, making it the premier local engine for coding agents:
+
+```bash
+# OpenCode
+ollama launch opencode --model sopu175/sopu-coder-fast
+
+# Claude Code
+ollama launch claude --model sopu175/sopu-coder-fast
+
+# Hermes Agent
+ollama launch hermes --model sopu175/sopu-coder-fast
+
+# OpenClaw
+ollama launch openclaw --model sopu175/sopu-coder-fast
+```
+
+### IDE Tab Autocomplete (Continue for VS Code / Cursor)
 
 Add to `~/.continue/config.json`:
 
@@ -61,7 +82,7 @@ Add to `~/.continue/config.json`:
   "tabAutocompleteModel": {
     "title": "SopuCoder Fast",
     "provider": "ollama",
-    "model": "sopu175/sopu-coder-fast:v1.1.0"
+    "model": "sopu175/sopu-coder-fast:latest"
   }
 }
 ```
