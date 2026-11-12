@@ -1,0 +1,13 @@
+# SopuCoder Fine-Tuning Dependencies
+# Recommended Python: 3.10 - 3.12 (with CUDA 12.x for GPU training)
+
+torch>=2.2.0
+transformers>=4.45.0
+peft>=0.13.0
+trl>=0.11.0
+bitsandbytes>=0.43.0
+datasets>=2.21.0
+accelerate>=0.34.0
+scipy>=1.11.0
+pyyaml>=6.0
+packaging>=23.0
