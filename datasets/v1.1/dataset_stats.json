@@ -1,0 +1,28 @@
+{
+  "version": "v1.1.0",
+  "total_records": 27,
+  "splits": {
+    "train": 19,
+    "validation": 4,
+    "test": 4
+  },
+  "languages": {
+    "python": 4,
+    "typescript": 11,
+    "javascript": 4,
+    "php": 8
+  },
+  "frameworks": {
+    "fastapi": 2,
+    "pytest": 1,
+    "standard_library": 1,
+    "core": 8,
+    "node": 1,
+    "react": 4,
+    "laravel": 2,
+    "nextjs": 2,
+    "nodejs": 2,
+    "yii2": 2,
+    "wordpress": 2
+  }
+}

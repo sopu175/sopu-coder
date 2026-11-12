@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-SopuCoder Dataset Quality Validator & Splitter
-Validates dataset schemas, verifies permissive licenses, detects duplicate samples,
-checks syntax integrity, and generates deterministic train/val/test splits.
+SopuCoder Dataset Quality Validator & Splitter (v1.1)
+Validates schemas, licenses, AST syntax, deduplicates content,
+and deterministically generates train/val/test splits without overwriting previous versions.
 """
 
 import argparse
@@ -12,6 +12,7 @@ import json
 import os
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 PERMISSIBLE_LICENSES = {
@@ -63,7 +64,6 @@ def validate_record(record: dict, line_num: int, filename: str) -> tuple[bool, s
     if not record["output"].strip():
         return False, "Empty output"
 
-    # If Python, check code syntax if code blocks exist
     if record["language"].lower() == "python":
         blocks = extract_code_blocks(record["output"])
         for block in blocks:
@@ -73,15 +73,18 @@ def validate_record(record: dict, line_num: int, filename: str) -> tuple[bool, s
     return True, "Valid"
 
 
-def process_datasets(input_dirs: list[Path], output_dir: Path, split_ratios=(0.8, 0.1, 0.1)):
+def process_datasets(input_dirs: list[Path], output_dir: Path, split_ratios=(0.7, 0.15, 0.15)):
     all_records = []
     seen_hashes = set()
     duplicates_count = 0
     errors = []
+    lang_counter = Counter()
+    framework_counter = Counter()
 
     for d in input_dirs:
         for jsonl_file in d.glob("**/*.jsonl"):
-            if "split" in jsonl_file.stem:
+            # Exclude existing split directories to prevent self-ingestion
+            if "splits" in jsonl_file.parts or "v1.1" in jsonl_file.parts:
                 continue
             with open(jsonl_file, "r", encoding="utf-8") as f:
                 for idx, line in enumerate(f, 1):
@@ -99,7 +102,6 @@ def process_datasets(input_dirs: list[Path], output_dir: Path, split_ratios=(0.8
                         errors.append(f"{jsonl_file.name}:{idx} Invalid record ({reason})")
                         continue
 
-                    # Check duplicates on instruction + output
                     content_hash = compute_hash(record["instruction"] + " " + record["output"])
                     if content_hash in seen_hashes:
                         duplicates_count += 1
@@ -107,39 +109,63 @@ def process_datasets(input_dirs: list[Path], output_dir: Path, split_ratios=(0.8
 
                     seen_hashes.add(content_hash)
                     all_records.append(record)
+                    lang_counter[record["language"]] += 1
+                    framework_counter[record.get("framework", "general")] += 1
 
-    print(f"\n=======================================================")
-    print(f" SopuCoder Dataset Validation Summary")
-    print(f"=======================================================")
-    print(f" Valid Records: {len(all_records)}")
-    print(f" Duplicates Removed: {duplicates_count}")
-    print(f" Errors/Rejected: {len(errors)}")
+    print("\n=======================================================")
+    print(" SopuCoder Dataset Validation Summary (v1.1)")
+    print("=======================================================")
+    print(f" Total Valid Records:   {len(all_records)}")
+    print(f" Duplicates Discarded: {duplicates_count}")
+    print(f" Errors/Rejected:      {len(errors)}")
+
+    print("\n📊 Records by Language:")
+    for lang, count in sorted(lang_counter.items()):
+        print(f"  - {lang:12}: {count}")
+
+    print("\n📦 Records by Framework/Category:")
+    for fw, count in sorted(framework_counter.items()):
+        print(f"  - {fw:16}: {count}")
 
     if errors:
         print("\nErrors encountered:")
         for err in errors[:10]:
             print(f"  ❌ {err}")
-        if len(errors) > 10:
-            print(f"  ...and {len(errors) - 10} more.")
 
     if not all_records:
-        print("No valid records found to split.")
-        return
+        print("No valid records found.")
+        return None
 
-    # Deterministic shuffle & split
+    # Deterministic train/val/test split
     import random
     rng = random.Random(42)
     rng.shuffle(all_records)
 
     n_total = len(all_records)
-    n_train = int(n_total * split_ratios[0])
-    n_val = int(n_total * split_ratios[1])
+    n_val = max(2, int(n_total * split_ratios[1]))
+    n_test = max(2, int(n_total * split_ratios[2]))
+    n_train = n_total - n_val - n_test
 
     train_set = all_records[:n_train]
     val_set = all_records[n_train:n_train + n_val]
     test_set = all_records[n_train + n_val:]
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    stats = {
+        "version": "v1.1.0",
+        "total_records": n_total,
+        "splits": {
+            "train": len(train_set),
+            "validation": len(val_set),
+            "test": len(test_set)
+        },
+        "languages": dict(lang_counter),
+        "frameworks": dict(framework_counter)
+    }
+
+    with open(output_dir / "dataset_stats.json", "w", encoding="utf-8") as f:
+        json.dump(stats, f, indent=2)
+
     for name, dataset in [("train.jsonl", train_set), ("val.jsonl", val_set), ("test.jsonl", test_set)]:
         path = output_dir / name
         with open(path, "w", encoding="utf-8") as f:
@@ -147,11 +173,27 @@ def process_datasets(input_dirs: list[Path], output_dir: Path, split_ratios=(0.8
                 f.write(json.dumps(item) + "\n")
         print(f" Exported: {path} ({len(dataset)} samples)")
 
+    return stats
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Validate & split SopuCoder datasets")
-    parser.add_argument("--inputs", nargs="+", default=["datasets/python", "datasets/typescript", "datasets/javascript", "datasets/react", "datasets/php"])
-    parser.add_argument("--output", type=Path, default=Path("datasets/splits"))
+    parser = argparse.ArgumentParser(description="Validate & version SopuCoder datasets")
+    parser.add_argument(
+        "--inputs",
+        nargs="+",
+        default=[
+            "datasets/python",
+            "datasets/typescript",
+            "datasets/javascript",
+            "datasets/react",
+            "datasets/php",
+            "datasets/nextjs",
+            "datasets/nodejs",
+            "datasets/yii2",
+            "datasets/wordpress"
+        ]
+    )
+    parser.add_argument("--output", type=Path, default=Path("datasets/v1.1"))
     args = parser.parse_args()
 
     input_paths = [Path(p) for p in args.inputs if Path(p).exists()]
@@ -160,4 +202,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
