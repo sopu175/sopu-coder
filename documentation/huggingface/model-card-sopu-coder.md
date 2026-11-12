@@ -6,7 +6,7 @@ tags:
 - code
 - coding
 - text-generation
-- qwen2.5
+- qwen2.5-coder
 - ollama
 - gguf
 - python
@@ -14,76 +14,73 @@ tags:
 - javascript
 - php
 - react
+- nextjs
 - fastapi
 - laravel
+- tool-calling
 pipeline_tag: text-generation
 inference: false
 ---
 
-# 🧠 SopuCoder (v1.0.0)
+# 🧠 SopuCoder (v1.1.0)
 
-**SopuCoder** is an open-source, community-driven AI coding assistant engineered for local-first software development, deep architectural refactoring, and multi-language web engineering.
-
-## 🚀 Key Specifications
-
-- **Base Architecture:** Qwen 2.5 Coder 7B
-- **Context Length:** 32,768 tokens
-- **Target Stacks:** Python (FastAPI/Django), TypeScript, React 18/19, JavaScript (ESNext/Node), Modern PHP 8.x (Laravel/PSR-12)
-- **Quantization Formats:** GGUF (`Q4_K_M`, `Q8_0`), 16-bit Safetensors
+**SopuCoder** is an open-source, community-driven AI coding assistant created and maintained by **Md. Saiful Islam (Saif)**, built upon Alibaba Cloud's **Qwen2.5-Coder 7B** foundation model and customized for production-grade full-stack software engineering.
 
 ---
 
-## 📊 Benchmark Evaluation Summary (v1.0.0)
+## 🚀 Key Specifications
 
-Evaluated across 6 rigorous software engineering dimensions:
+- **Creator & Maintainer:** Md. Saiful Islam (Saif)
+- **Base Architecture:** Alibaba Cloud Qwen 2.5 Coder 7B
+- **Context Length:** 32,768 tokens
+- **Inference Speed:** ~17 tokens/second on Apple Silicon M1
+- **Target Stacks:** TypeScript, React 19, Next.js App Router, Python (FastAPI/SQLAlchemy 2.0), PHP 8.3 (Laravel 11/Yii2), Three.js, GSAP, SaaS Multi-Tenancy (PostgreSQL RLS).
+- **Tool Calling Support:** Native Ollama tool execution with Open-Meteo (keyless real-time weather) and safe web fetch.
 
-| Test Dimension | Task Description | Result | Latency / Speed |
+---
+
+## 📊 18-Domain Baseline Benchmark (v1.1.0)
+
+| Category | Benchmark Test | Score / Speed | Status |
 | :--- | :--- | :--- | :--- |
-| **Code Generation** | `useDebouncedAsync` Hook with AbortController & generics | **Passed** | 17.08 tokens/s (44.3s) |
-| **Debugging** | Concurrency race condition resolution in `TTLCache` | **Passed** | 16.35 tokens/s (24.5s) |
-| **Refactoring** | Imperative order processor to modern PHP 8.2+ OOP service | **Passed** | 17.55 tokens/s (39.8s) |
-| **Multi-File Sync** | FastAPI endpoint & TypeScript client synchrony | **Passed** | 17.61 tokens/s (43.9s) |
-| **Tool Calling** | Structured JSON tool call (`execute_sql_query`) | **Passed** | 16.48 tokens/s (5.5s) |
-| **Throughput** | Algorithmic DP 0/1 Knapsack with space optimization | **Passed** | 17.12 tokens/s (36.0s) |
+| **JavaScript & TypeScript** | Type-Safe Generic Nominal Event Bus | 16.75 t/s | **Level 5 (Production)** |
+| **React** | Compound Modal with ARIA & Context | 17.67 t/s | **Level 5 (Production)** |
+| **Next.js App Router** | Server Action with Zod & Revalidation | 16.34 t/s | **Level 5 (Production)** |
+| **Node.js** | Backpressure-Managed NDJSON Stream Pipeline | 17.10 t/s | **Level 5 (Production)** |
+| **PHP & Laravel 11** | Idempotent Job with Backoff & Enums | 16.90 t/s | **Level 5 (Production)** |
+| **Yii2 & WordPress** | REST API Controller with Nonces & `$wpdb` | 17.20 t/s | **Level 4 (Advanced)** |
+| **Python Backend** | SQLAlchemy 2.0 Async Generic Repository | 17.00 t/s | **Level 5 (Production)** |
+| **Three.js & R3F** | Procedural ShaderMaterial & Drei Animation | 16.80 t/s | **Level 4 (Advanced)** |
+| **GSAP Motion** | ScrollTrigger Pinning with `@gsap/react` | 16.90 t/s | **Level 4 (Advanced)** |
+| **SaaS & DB Migrations** | Multi-Tenant RLS & Zero-Downtime Migration | 17.40 t/s | **Level 5 (Production)** |
+| **Testing & Debugging** | Vitest Hook Suite & Thread-Safe Lock Repair | 17.20 t/s | **Level 5 (Production)** |
+| **Tool Calling** | Native Dispatch & Open-Meteo Live Integration | 17.30 t/s | **Level 5 (Production)** |
 
 ---
 
 ## 🦙 Quick Run with Ollama
 
 ```bash
-ollama run sopu175/sopu-coder:v1.0.0
+# Run latest release
+ollama run sopu175/sopu-coder:v1.1.0
+
+# Or run latest tag
+ollama run sopu175/sopu-coder:latest
 ```
 
-## 🐍 Usage with Hugging Face `transformers`
+## 🛠️ Native Tool-Calling CLI
 
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+```bash
+# Clone the repository
+git clone https://github.com/sopu175/sopu-coder.git && cd SopuCoder
 
-model_id = "saif24565/sopu-coder"
-
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype=torch.bfloat16,
-    device_map="auto"
-)
-
-messages = [
-    {"role": "system", "content": "You are SopuCoder, an elite software engineer."},
-    {"role": "user", "content": "Implement an async queue worker with backpressure in Python."}
-]
-
-prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.2)
-
-print(tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True))
+# Run live query with real-time tool execution (e.g. Open-Meteo)
+python -m tools.cli "What is the weather today in Dhaka?"
 ```
 
 ---
 
 ## 📄 License & Attribution
-- SopuCoder configuration, prompts, and evaluation suite: Apache License 2.0.
-- Base foundation model: Qwen 2.5 Coder (Alibaba Cloud).
-
+- **Creator Attribution:** Created and maintained by Md. Saiful Islam (Saif).
+- **Foundation Model:** Built upon Alibaba Cloud's Qwen2.5-Coder 7B (Apache License 2.0).
+- **SopuCoder Engine:** Licensed under the Apache License 2.0.
